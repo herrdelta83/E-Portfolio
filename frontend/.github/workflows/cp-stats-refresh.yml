@@ -1,0 +1,13 @@
+name: Refresh CP Stats
+
+on:
+  schedule:
+    - cron: "0 */6 * * *" # every 6 hours
+  workflow_dispatch: {}
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Hit the cp-stats API route to warm the cache
+        run: curl -sf "https://YOUR-DOMAIN.vercel.app/api/cp-stats" || true
