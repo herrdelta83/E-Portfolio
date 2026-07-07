@@ -1,0 +1,48 @@
+---
+title: "Minecraft Port: A Real-Time Voxel Background"
+core: "swe"
+date: "2026-07-06"
+status: "draft"
+---
+
+# Minecraft Port: A Real-Time Voxel Background
+
+## Problem
+Every spoke page in this portfolio carries an immersive theme layered under a
+clean editorial layout. For the Software Engineering spoke, the goal was a
+Minecraft-style voxel landscape that isn't just a static image — it should
+track the visitor's actual local time, shifting from day to sunset to night
+the way the game itself does.
+
+## Approach
+- Render entirely on `<canvas>`, redrawn once a second from a `Date` tick —
+  no sprite assets, just gradients and rectangles shaded per block.
+- Model the sky as a small set of keyframe "stops" (night, dawn, day, dusk)
+  keyed by hour, and linearly interpolate color, ambient tint, and a
+  brightness multiplier between the two nearest stops so transitions are
+  smooth rather than stepped.
+- Derive the sun/moon position from the same hour value, arcing it across
+  the canvas with a sine curve and swapping in a moon glow outside the
+  6am–6pm window.
+- Generate the terrain's hill heights with a seeded PRNG (`mulberry32`)
+  instead of `Math.random()`, so the skyline doesn't jump on every resize —
+  only regenerating when the column count actually changes.
+- Multiply every block's base color by the current brightness factor, so
+  grass, dirt, stone, torches, and the background temple all dim together
+  as night falls, instead of only the sky changing.
+- Keep the foreground content in a glassmorphism card (`backdrop-filter:
+  blur`) so the copy stays readable regardless of what the sky is doing
+  behind it, and mirror the day/night state in a small pixel-icon clock
+  widget pinned to the corner.
+
+## Result
+A single `MinecraftBackground` component that takes a `now: Date` prop and
+handles the rest — sky, stars, sun/moon, terrain, trees, torches, and a
+distant stepped temple silhouette — plus a `RetroClock` widget reading the
+same clock state. Both live in `components/` and are consumed by the
+Software Engineering spoke page.
+
+## What I'd do differently
+The terrain redraws fully every second, which is cheap at this scale but
+wouldn't scale to a larger canvas or higher block density — a dirty-rect or
+offscreen-canvas caching pass would be the next step if the scene grows.
