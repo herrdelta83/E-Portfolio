@@ -16,5 +16,4 @@ services/**/*.pyc
 *.log
 
 # Ignore Claude context files
-claude.md
 CLAUDE.md
