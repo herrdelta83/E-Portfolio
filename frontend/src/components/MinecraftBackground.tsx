@@ -13,6 +13,9 @@ const SKY: Record<DayPhase, string> = {
 const FRAME_POSITION = "50% 42%";
 const LAYER_CLASS = "absolute inset-0 h-full w-full object-cover";
 const layerStyle = { objectPosition: FRAME_POSITION };
+// Terrain art reads slightly squashed at this crop — stretch it wider only;
+// scaleX breaks aspect on purpose, overflow is clipped by the parent's overflow-hidden.
+const terrainStyle = { ...layerStyle, transform: "scaleX(1.08)" };
 
 const SUN_Y: Record<DayPhase, string> = {
   day: "-12%",
@@ -28,12 +31,12 @@ const HAZE_OPACITY: Record<DayPhase, number> = {
 const TRANSITION = { duration: 2, ease: "easeInOut" as const };
 
 const TORCHES = [
-  { x: "26%", y: "76.5%" },
-  { x: "31.8%", y: "72.5%" },
+  { x: "23%", y: "65.5%" },
+  { x: "29.2%", y: "55.5%" },
   { x: "45.6%", y: "76.5%" },
   { x: "57.9%", y: "76.5%" },
-  { x: "64.2%", y: "88.5%" },
-  { x: "91.3%", y: "65%" },
+  { x: "66.2%", y: "88.5%" },
+  { x: "82.5%", y: "61%" },
 ];
 
 export default function MinecraftBackground({ now }: { now: Date }) {
@@ -73,7 +76,7 @@ export default function MinecraftBackground({ now }: { now: Date }) {
         src="/images/desktop/terrain.svg"
         alt="Minecraft landscape at the current time of day"
         className={LAYER_CLASS}
-        style={layerStyle}
+        style={terrainStyle}
       />
 
       {/* persistent warm sunset grade + atmospheric haze, held for the duration of the phase */}
