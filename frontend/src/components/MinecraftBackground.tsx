@@ -8,16 +8,36 @@ const SKY: Record<DayPhase, string> = {
   dusk: "/images/desktop/sky2.svg",
 };
 
-const SUN_POSE: Record<DayPhase, { y: string; scale: number; glow: number }> = {
-  day: { y: "-14%", scale: 1, glow: 0.35 },
-  dusk: { y: "8%", scale: 1.12, glow: 0.9 },
+// Shared crop anchor for every layer — keeps sky/sun/terrain pixel-aligned
+// on viewports wider or narrower than the artwork's native 16:9.
+const FRAME_POSITION = "50% 42%";
+const LAYER_CLASS = "absolute inset-0 h-full w-full object-cover";
+const layerStyle = { objectPosition: FRAME_POSITION };
+
+const SUN_Y: Record<DayPhase, string> = {
+  day: "-12%",
+  dusk: "6%",
+};
+
+// Ambient warm grade + haze, held (not just flashed) for as long as the phase lasts.
+const HAZE_OPACITY: Record<DayPhase, number> = {
+  day: 0.08,
+  dusk: 0.55,
 };
 
 const TRANSITION = { duration: 2, ease: "easeInOut" as const };
 
+const TORCHES = [
+  { x: "26%", y: "76.5%" },
+  { x: "31.8%", y: "72.5%" },
+  { x: "45.6%", y: "76.5%" },
+  { x: "57.9%", y: "76.5%" },
+  { x: "64.2%", y: "88.5%" },
+  { x: "91.3%", y: "65%" },
+];
+
 export default function MinecraftBackground({ now }: { now: Date }) {
   const phase = getDayPhase(now);
-  const sun = SUN_POSE[phase];
 
   return (
     <div className="fixed inset-0 -z-10 overflow-hidden">
@@ -28,44 +48,69 @@ export default function MinecraftBackground({ now }: { now: Date }) {
           src={SKY[phase]}
           alt=""
           aria-hidden="true"
-          initial={{ opacity: 0, scale: 1.03 }}
-          animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0, scale: 1.03 }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
           transition={TRANSITION}
-          className="absolute inset-0 h-full w-full object-cover"
+          className={LAYER_CLASS}
+          style={layerStyle}
         />
       </AnimatePresence>
 
-      {/* discrete glow flash marking the sky handoff */}
-      <motion.div
-        key={`glow-${phase}`}
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0"
-        style={{
-          background:
-            "radial-gradient(circle at 50% 62%, rgba(255,196,120,0.8), transparent 55%)",
-        }}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: [0, 0.75, 0] }}
-        transition={{ duration: 2.2, ease: "easeInOut", times: [0, 0.45, 1] }}
-      />
-
-      {/* sun — same disc, repositioned/re-glowed via CSS transform between phases */}
+      {/* sun — same disc, only translated (never scaled) between phases so it stays at native resolution */}
       <motion.img
         src="/images/desktop/sun.svg"
         alt=""
         aria-hidden="true"
-        animate={{ y: sun.y, scale: sun.scale, filter: `drop-shadow(0 0 ${sun.glow * 60}px rgba(255,190,110,${sun.glow}))` }}
+        animate={{ y: SUN_Y[phase] }}
         transition={TRANSITION}
-        className="absolute inset-0 h-full w-full object-cover"
+        className={LAYER_CLASS}
+        style={layerStyle}
       />
 
       {/* terrain — static foreground: ground, trees, torches, temple */}
       <img
         src="/images/desktop/terrain.svg"
         alt="Minecraft landscape at the current time of day"
-        className="absolute inset-0 h-full w-full object-cover"
+        className={LAYER_CLASS}
+        style={layerStyle}
       />
+
+      {/* persistent warm sunset grade + atmospheric haze, held for the duration of the phase */}
+      <motion.div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0"
+        style={{
+          background:
+            "radial-gradient(circle at 50% 55%, rgba(255,170,110,0.9), transparent 60%), linear-gradient(180deg, rgba(120,70,110,0.25) 0%, rgba(40,20,50,0.35) 100%)",
+        }}
+        animate={{ opacity: HAZE_OPACITY[phase] }}
+        transition={TRANSITION}
+      />
+
+      {/* torch glow — soft additive bloom over the terrain's torch positions */}
+      <div className="pointer-events-none absolute inset-0" style={{ mixBlendMode: "screen" }}>
+        {TORCHES.map((t, i) => (
+          <motion.div
+            key={i}
+            className="absolute h-16 w-16 -translate-x-1/2 -translate-y-1/2 rounded-full"
+            style={{
+              left: t.x,
+              top: t.y,
+              background: "radial-gradient(circle, rgba(255,170,80,0.9), transparent 70%)",
+            }}
+            animate={{
+              opacity: phase === "dusk" ? [0.5, 0.85, 0.5] : 0,
+            }}
+            transition={{
+              opacity:
+                phase === "dusk"
+                  ? { duration: 2.4, repeat: Infinity, ease: "easeInOut", delay: i * 0.3 }
+                  : TRANSITION,
+            }}
+          />
+        ))}
+      </div>
     </div>
   );
 }
