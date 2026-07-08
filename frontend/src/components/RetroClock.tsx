@@ -48,7 +48,7 @@ function PixelIcon({ rows, color }: { rows: string[]; color: string }) {
 }
 
 export default function RetroClock({ now }: { now: Date }) {
-  const isNight = getDayPhase(now) === "night";
+  const isNight = getDayPhase(now) === "dusk";
   const hh = String(now.getHours()).padStart(2, "0");
   const mm = String(now.getMinutes()).padStart(2, "0");
 
