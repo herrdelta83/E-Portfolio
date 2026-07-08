@@ -1,14 +1,13 @@
 "use client";
 
 import { useEffect, useState } from "react";
-/*
-const FRAME_INTERVAL = 1400;
-const SCREEN_FRAMES = [1, 2, 3, 4].map((n) => `/images/desktop/monitor-screen-${n}.webp`);
-*/
 
-// Chassis is a fixed crop (818x681) with its CRT cut to a transparent hole at
-// this rect — only the screen layers below animate, the chassis never moves.
-const SCREEN_RECT = { left: "27.8%", top: "9.5%", width: "48.8%", height: "43.6%" };
+const FRAME_INTERVAL = 1400;
+// monitor-chassis is a single static crop (from pc_sprites_1 only — never
+// swapped). monitor-screen-1..4 are cropped from monitor_sprites_1..4 at the
+// exact same rect, and are transparent everywhere except the CRT glow, so
+// they drop straight on top of the chassis with zero extra position/size math.
+const SCREEN_FRAMES = [1, 2, 3, 4].map((n) => `/images/desktop/monitor-screen-${n}.webp`);
 
 function Monitor({ frame }: { frame: number }) {
   return (
@@ -21,15 +20,15 @@ function Monitor({ frame }: { frame: number }) {
         alt="Retro CRT terminal, the Competitive Programming spoke's focal prop"
         className="absolute inset-0 h-full w-full"
       />
-      {/*SCREEN_FRAMES.map((src, i) => (
+      {SCREEN_FRAMES.map((src, i) => (
         <img
           key={src}
           src={src}
           alt=""
-          className="absolute transition-opacity duration-500 ease-in-out"
-          style={{ ...SCREEN_RECT, opacity: frame === i ? 1 : 0 }}
+          className="absolute inset-0 h-full w-full"
+          style={{ opacity: frame === i ? 1 : 0 }}
         />
-      ))*/}
+      ))}
     </div>
   );
 }
@@ -37,14 +36,12 @@ function Monitor({ frame }: { frame: number }) {
 export default function CPBackground() {
   const [frame, setFrame] = useState(0);
 
-  /*
   useEffect(() => {
     const id = setInterval(() => {
       setFrame((f) => (f + 1) % SCREEN_FRAMES.length);
     }, FRAME_INTERVAL);
     return () => clearInterval(id);
   }, []);
-  */
 
   return (
         /* 1. Main Outer Wrapper: Forces the component to take up the full screen */
