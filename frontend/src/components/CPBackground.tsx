@@ -45,7 +45,7 @@ export default function CPBackground() {
 
   return (
         /* 1. Main Outer Wrapper: Forces the component to take up the full screen */
-    <div className="relative w-screen h-screen overflow-hidden bg-black flex items-center justify-center">
+    <div className="fixed inset-0 -z-10 overflow-hidden bg-black flex items-center justify-center">
       {/* 2. Responsive Canvas: Locks your layered assets into their exact coordination system */}
         <div
           className= "relative w-full h-full min-w-full min-h-full flex-shrink-0"
