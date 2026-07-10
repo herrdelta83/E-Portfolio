@@ -69,7 +69,7 @@ export default function MLBackground() {
                 key={src}
                 src={src}
                 alt={i === 0 ? "Robot arm picking a cube off the stack, looping" : ""}
-                className="absolute inset-0 h-full w-full transition-opacity duration-300 ease-in-out"
+                className="absolute inset-0 h-full w-full transition-opacity duration-0 ease-in-out"
                 style={{ opacity: frame === i ? 1 : 0 }}
               />
             ))}
