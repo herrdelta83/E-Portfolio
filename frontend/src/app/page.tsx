@@ -1,4 +1,13 @@
+"use client";
+
+import { useState, type CSSProperties } from "react";
 import Link from "next/link";
+import { AnimatorGeneralProvider, Animator, Animated, FrameOctagon } from "@arwes/react";
+import CircuitHUD, {
+  CIRCUIT_BUILD_DURATION,
+  CIRCUIT_CYAN,
+  CIRCUIT_GREEN,
+} from "@/components/CircuitHUD";
 
 const spokes = [
   {
@@ -27,42 +36,106 @@ const spokes = [
   },
 ];
 
+const framePanelStyle = {
+  "--arwes-frames-line-color": CIRCUIT_CYAN,
+  "--arwes-frames-bg-color": "rgba(9,51,58,0.25)",
+} as CSSProperties;
+
+const frameImageStyle = {
+  "--arwes-frames-line-color": CIRCUIT_GREEN,
+  "--arwes-frames-bg-color": "rgba(2,17,20,0.6)",
+} as CSSProperties;
+
+function SpokeQuadrant({ spoke }: { spoke: (typeof spokes)[number] }) {
+  const [hovered, setHovered] = useState(false);
+
+  return (
+    <Link
+      href={`/spokes/${spoke.slug}`}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      className="group relative flex items-center gap-4 p-5"
+    >
+      <Animated
+        className="absolute inset-0 transition-[filter] duration-300 ease-out"
+        hideOnExited={false}
+        style={{
+          filter: hovered
+            ? `drop-shadow(0 0 4px ${CIRCUIT_CYAN}) drop-shadow(0 0 12px ${CIRCUIT_CYAN})`
+            : "none",
+        }}
+      >
+        <FrameOctagon style={framePanelStyle} strokeWidth={hovered ? 2.5 : 1.5} squareSize={14} />
+      </Animated>
+
+      <div className="relative shrink-0" style={{ width: 96, height: 96 }}>
+        <FrameOctagon style={frameImageStyle} strokeWidth={1} squareSize={8} />
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={spoke.image} alt="" className="relative h-full w-full object-contain p-2" />
+      </div>
+
+      <div className="relative min-w-0">
+        <h2 className="font-display text-lg text-[#E8FEFF]">{spoke.label}</h2>
+        <p className="mt-2 text-sm leading-relaxed text-[#8FD8DE]/80 group-hover:text-[#E8FEFF]">
+          {spoke.blurb}
+        </p>
+      </div>
+    </Link>
+  );
+}
+
 export default function Home() {
   return (
-    <main className="mx-auto max-w-4xl px-6 py-24">
-      <p className="font-mono text-sm uppercase tracking-widest text-circuit">
-        2026 build log
-      </p>
-      <h1 className="mt-3 font-display text-5xl leading-tight text-ink">
-        Leonel — Electronic Portfolio
-      </h1>
-      <p className="mt-6 max-w-xl text-lg text-ink/70">
-        Four cores, one build year. Each section below is a working system,
-        not a screenshot.
-      </p>
+    <AnimatorGeneralProvider duration={{ enter: CIRCUIT_BUILD_DURATION, exit: 1 }}>
+      <Animator root active manager="stagger">
+        <CircuitHUD />
 
-      <div className="mt-16 grid gap-px overflow-hidden rounded-lg border border-ink/10 bg-ink/10 sm:grid-cols-2">
-        {spokes.map((s) => (
-          <Link
-            key={s.slug}
-            href={`/spokes/${s.slug}`}
-            className="group flex items-center gap-5 bg-paper p-6 transition-colors hover:bg-ink hover:text-paper"
-          >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={s.image}
-              alt=""
-              className="h-20 w-20 shrink-0 object-contain sm:h-24 sm:w-24"
-            />
-            <div>
-              <h2 className="font-display text-xl">{s.label}</h2>
-              <p className="mt-2 text-sm text-ink/60 group-hover:text-paper/70">
-                {s.blurb}
-              </p>
-            </div>
-          </Link>
-        ))}
-      </div>
-    </main>
+        <main className="relative mx-auto max-w-6xl px-6 py-16">
+          {/* header bar */}
+          <Animator>
+            <Animated className="relative mb-10 px-6 py-5" hideOnExited={false}>
+              <FrameOctagon style={framePanelStyle} strokeWidth={1.5} squareSize={18} />
+              <div className="relative flex items-center justify-between">
+                <div>
+                  <p className="font-mono text-xs uppercase tracking-[0.3em] text-[#00F0FF]">
+                    2026 build log
+                  </p>
+                  <h1 className="mt-2 font-display text-3xl text-[#E8FEFF] sm:text-4xl">
+                    Leonel — Electronic Portfolio
+                  </h1>
+                </div>
+                <div className="hidden items-center gap-2 font-mono text-xs uppercase tracking-widest text-[#00FF55] sm:flex">
+                  Online
+                  <span className="circuit-node-pulse h-2 w-2 rounded-full bg-[#00FF55]" style={{ filter: "drop-shadow(0 0 5px #00FF55)" }} />
+                </div>
+              </div>
+            </Animated>
+          </Animator>
+
+          <Animator>
+            <Animated as="p" className="mb-10 max-w-xl text-sm text-[#8FD8DE]/80" animated={["fade"]}>
+              Four cores, one build year. Each section below is a working system,
+              not a screenshot.
+            </Animated>
+          </Animator>
+
+          {/* 2x2 grid, wrapped in one outer frame */}
+          <Animator>
+            <Animated className="relative" hideOnExited={false}>
+              <FrameOctagon style={framePanelStyle} strokeWidth={1.5} squareSize={18} />
+              <Animator manager="stagger">
+                <div className="relative grid divide-y divide-[#00F0FF]/15 sm:grid-cols-2 sm:divide-x sm:divide-y-0">
+                  {spokes.map((s) => (
+                    <Animator key={s.slug}>
+                      <SpokeQuadrant spoke={s} />
+                    </Animator>
+                  ))}
+                </div>
+              </Animator>
+            </Animated>
+          </Animator>
+        </main>
+      </Animator>
+    </AnimatorGeneralProvider>
   );
 }
