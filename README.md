@@ -1,19 +1,18 @@
 # Electronic Portfolio — 2026 Build
 
-A hub-and-spokes portfolio covering: Software Engineering, Competitive
-Programming, Machine Learning, AI Engineering, and Embedded Systems &
-Robotics.
+A hub-and-spokes portfolio covering: Software Engineering (including
+AI-integrated projects like RAG pipelines), Competitive Programming, Machine
+Learning, and Embedded Systems & Robotics.
 
 ## Structure
 
 ```
 app/                    # Next.js hub (App Router)
-  page.tsx              # Home — links to all five spokes
+  page.tsx              # Home — links to all four spokes
   spokes/                # One placeholder page per core, replace with real content
     swe/
     cp/
     ml/
-    ai-engineering/
     embedded-robotics/
   api/cp-stats/         # Route that fetches live Codeforces stats
 content/case-studies/    # MDX write-ups per project (see example.mdx)
@@ -55,11 +54,10 @@ uvicorn main:app --reload
 | Phase | Focus | Milestone |
 |---|---|---|
 | Weeks 1–3 | Foundation | This scaffold live on Vercel with real copy |
-| Sprint 1 | SWE | Pick a "Build Your Own X" project, ship as a case study |
+| Sprint 1 | SWE | Pick a "Build Your Own X" project, ship as a case study — RAG/tool-using-agent builds (deployed via `agent-service`) count here too |
 | Ongoing | Competitive Programming | Daily/weekly practice; `/api/cp-stats` stays live |
 | Sprint 2 | Machine Learning | Kaggle project or from-scratch model, deployed via `ml-service` |
-| Sprint 3 | AI Engineering | RAG or tool-using agent, deployed via `agent-service`, embedded as a chat widget |
-| Sprint 4 | Embedded/Robotics | Sensor project → small robot with live telemetry dashboard |
+| Sprint 3 | Embedded/Robotics | Sensor project → small robot with live telemetry dashboard |
 
 Each sprint ends with a real case study in `content/case-studies/` and a
 replaced spoke page — no placeholder should survive past its sprint.
