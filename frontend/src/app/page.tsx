@@ -5,21 +5,25 @@ const spokes = [
     slug: "swe",
     label: "Software Engineering",
     blurb: "Systems, tools, and full-stack builds — including 'build your own X' deep dives and AI-integrated projects like RAG pipelines and GPT-powered features.",
+    image: "/images/desktop/hub-swe.webp",
   },
   {
     slug: "cp",
     label: "Competitive Programming",
     blurb: "Live Codeforces / LeetCode stats, contest history, and problem-solving notes.",
+    image: "/images/desktop/hub-cp.webp",
   },
   {
     slug: "ml",
     label: "Machine Learning",
     blurb: "Trained models, from-scratch experiments, and deployed demos.",
+    image: "/images/desktop/hub-ml.webp",
   },
   {
     slug: "embedded-robotics",
     label: "Embedded Systems & Robotics",
     blurb: "Firmware, wiring diagrams, and physical builds, with live telemetry where possible.",
+    image: "/images/desktop/hub-robotics.webp",
   },
 ];
 
@@ -42,12 +46,20 @@ export default function Home() {
           <Link
             key={s.slug}
             href={`/spokes/${s.slug}`}
-            className="group bg-paper p-6 transition-colors hover:bg-ink hover:text-paper"
+            className="group flex items-center gap-5 bg-paper p-6 transition-colors hover:bg-ink hover:text-paper"
           >
-            <h2 className="font-display text-xl">{s.label}</h2>
-            <p className="mt-2 text-sm text-ink/60 group-hover:text-paper/70">
-              {s.blurb}
-            </p>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={s.image}
+              alt=""
+              className="h-20 w-20 shrink-0 object-contain sm:h-24 sm:w-24"
+            />
+            <div>
+              <h2 className="font-display text-xl">{s.label}</h2>
+              <p className="mt-2 text-sm text-ink/60 group-hover:text-paper/70">
+                {s.blurb}
+              </p>
+            </div>
           </Link>
         ))}
       </div>
