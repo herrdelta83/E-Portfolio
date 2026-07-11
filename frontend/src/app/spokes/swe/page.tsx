@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import MinecraftBackground from "@/components/MinecraftBackground";
 import RetroClock from "@/components/RetroClock";
 import BackToHubButton from "@/components/BackToHubButton";
+import GlassPanel from "@/components/GlassPanel";
 
 const CORE_STACK = ["Swift", "SwiftUI", "Python", "FastAPI", "C++", "C", "Dart"];
 
@@ -40,10 +41,7 @@ export default function SoftwareEngineeringPage() {
       <BackToHubButton />
 
       <div className="mx-auto flex min-h-screen max-w-3xl items-center px-6 py-24">
-        <div
-          className="w-full rounded-lg border border-white/10 p-8 shadow-[0_20px_60px_-24px_rgba(0,0,0,0.45)] backdrop-blur-xl sm:p-10"
-          style={{ backgroundColor: "rgba(15, 18, 30, 0.28)" }}
-        >
+        <GlassPanel>
           <p className="font-mono text-sm uppercase tracking-widest text-signal">
             Spoke: Software Engineering
           </p>
@@ -89,7 +87,7 @@ export default function SoftwareEngineeringPage() {
               </div>
             ))}
           </div>
-        </div>
+        </GlassPanel>
       </div>
     </main>
   );

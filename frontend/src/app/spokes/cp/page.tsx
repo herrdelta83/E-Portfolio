@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import CPBackground from "@/components/CPBackground";
 import BackToHubButton from "@/components/BackToHubButton";
+import GlassPanel from "@/components/GlassPanel";
 
 type CFUser = {
   handle: string;
@@ -65,10 +66,7 @@ export default function CompetitiveProgrammingPage() {
     <main className="relative min-h-screen overflow-hidden">
       <BackToHubButton />
       <div className="relative z-20 mx-auto flex min-h-screen max-w-3xl items-center px-6 py-24">
-        <div
-          className="w-full rounded-lg border border-white/10 p-8 shadow-[0_20px_60px_-24px_rgba(0,0,0,0.45)] backdrop-blur-xl sm:p-10"
-          style={{ backgroundColor: "rgba(15, 18, 30, 0.28)" }}
-        >
+        <GlassPanel>
           <p className="font-mono text-sm uppercase tracking-widest text-signal">
             Spoke: Competitive Programming
           </p>
@@ -123,7 +121,7 @@ export default function CompetitiveProgrammingPage() {
               <code className="text-paper">user.status</code> endpoints and list them here.
             </p>
           </div>
-        </div>
+        </GlassPanel>
       </div>
 
       <CPBackground />
