@@ -4,7 +4,7 @@ const spokes = [
   {
     slug: "swe",
     label: "Software Engineering",
-    blurb: "Systems, tools, and full-stack builds — including a few 'build your own X' deep dives.",
+    blurb: "Systems, tools, and full-stack builds — including 'build your own X' deep dives and AI-integrated projects like RAG pipelines and GPT-powered features.",
   },
   {
     slug: "cp",
@@ -15,11 +15,6 @@ const spokes = [
     slug: "ml",
     label: "Machine Learning",
     blurb: "Trained models, from-scratch experiments, and deployed demos.",
-  },
-  {
-    slug: "ai-engineering",
-    label: "AI Engineering",
-    blurb: "Agents, RAG pipelines, and tool-use systems — this site's own chat widget is one of them.",
   },
   {
     slug: "embedded-robotics",
@@ -38,7 +33,7 @@ export default function Home() {
         Leonel — Electronic Portfolio
       </h1>
       <p className="mt-6 max-w-xl text-lg text-ink/70">
-        Five cores, one build year. Each section below is a working system,
+        Four cores, one build year. Each section below is a working system,
         not a screenshot.
       </p>
 

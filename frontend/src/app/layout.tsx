@@ -4,7 +4,7 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "Leonel — Electronic Portfolio",
   description:
-    "SWE · Competitive Programmer · Machine Learning · AI Engineering · Embedded Systems · Robotics",
+    "SWE · Competitive Programmer · Machine Learning · Embedded Systems · Robotics",
 };
 
 export default function RootLayout({
