@@ -1,9 +1,11 @@
 import MLBackground from "@/components/MLBackground";
+import BackToHubButton from "@/components/BackToHubButton";
 
 export default function MachineLearningPage() {
   return (
     <main className="relative min-h-screen overflow-hidden">
       <MLBackground />
+      <BackToHubButton />
 
       <div className="relative z-20 mx-auto flex min-h-screen max-w-3xl items-center px-6 py-24">
         <div

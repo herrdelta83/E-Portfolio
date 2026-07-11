@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import MinecraftBackground from "@/components/MinecraftBackground";
 import RetroClock from "@/components/RetroClock";
+import BackToHubButton from "@/components/BackToHubButton";
 
 const CORE_STACK = ["Swift", "SwiftUI", "Python", "FastAPI", "C++", "C", "Dart"];
 
@@ -36,6 +37,7 @@ export default function SoftwareEngineeringPage() {
     <main className="relative min-h-screen overflow-hidden">
       <MinecraftBackground now={now} />
       <RetroClock now={now} />
+      <BackToHubButton />
 
       <div className="mx-auto flex min-h-screen max-w-3xl items-center px-6 py-24">
         <div
