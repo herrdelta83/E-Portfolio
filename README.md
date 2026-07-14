@@ -69,3 +69,4 @@ replaced spoke page — no placeholder should survive past its sprint.
 3. Wire the home page copy to your actual name/links.
 4. Pick the SWE milestone project and start building — this is where
    Claude Code takes over from chat-based planning.
+here
