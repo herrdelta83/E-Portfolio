@@ -1,27 +1,14 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import MinecraftBackground from "@/components/MinecraftBackground";
 import RetroClock from "@/components/RetroClock";
 import BackToHubButton from "@/components/BackToHubButton";
 import GlassPanel from "@/components/GlassPanel";
+import { SWE_PROJECTS } from "@/lib/swe-projects";
 
 const CORE_STACK = ["Swift", "SwiftUI", "Python", "FastAPI", "C++", "C", "Dart"];
-
-const PROJECTS = [
-  {
-    name: "Medical Brigade Data Capture",
-    stack: "Swift · SwiftUI",
-    blurb:
-      "Offline-first iOS app built for an NGO running rural medical brigades. Field staff capture patient intake, vitals, and treatment notes on-site with no connectivity, then sync to a central record once back online — replacing paper charts that used to go missing between clinics.",
-  },
-  {
-    name: "ISP Network Optimization Suite",
-    stack: "C++ · C · Python · FastAPI · SonarQube",
-    blurb:
-      "Internet service optimization system pairing latency-sensitive C++/C routing and diagnostics with a Python/FastAPI control layer. SonarQube gates every merge on unit test coverage and static analysis, catching regressions in the packet-handling core before they reach a live link.",
-  },
-];
 
 export default function SoftwareEngineeringPage() {
   const [now, setNow] = useState<Date | null>(null);
@@ -72,19 +59,25 @@ export default function SoftwareEngineeringPage() {
             <p className="font-mono text-xs uppercase tracking-widest text-paper/50">
               Project highlights
             </p>
-            {PROJECTS.map((project) => (
-              <div
-                key={project.name}
-                className="rounded-md border border-white/10 bg-black/20 p-5"
+            {SWE_PROJECTS.map((project) => (
+              <Link
+                key={project.slug}
+                href={`/spokes/swe/projects/${project.slug}`}
+                className="group block rounded-md border border-white/10 bg-black/20 p-5 transition-colors hover:border-signal/50 hover:bg-black/30"
               >
-                <h2 className="font-display text-xl text-paper">{project.name}</h2>
+                <div className="flex items-center justify-between gap-4">
+                  <h2 className="font-display text-xl text-paper">{project.name}</h2>
+                  <span className="shrink-0 font-mono text-xs uppercase tracking-widest text-signal opacity-0 transition-opacity group-hover:opacity-100">
+                    View →
+                  </span>
+                </div>
                 <p className="mt-1 font-mono text-[11px] uppercase tracking-wider text-signal">
                   {project.stack}
                 </p>
                 <p className="mt-3 text-sm leading-relaxed text-paper/75">
                   {project.blurb}
                 </p>
-              </div>
+              </Link>
             ))}
           </div>
         </GlassPanel>
