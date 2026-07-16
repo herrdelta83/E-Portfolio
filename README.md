@@ -56,23 +56,19 @@ uvicorn main:app --reload
 - ✅ Commit history showing real iteration, not a single dump
 - ✅ Tests included, even minimal
 - ✅ Scoped to do one thing well
+### SWE
+- ✅ Architecture decisions explained with tradeoffs, not just a tech-stack badge wall
+- ✅ CI/CD pipeline (green badge = "ships," not "sits in a folder")
+- ✅ Real users where applicable (e.g. SEITC platform — used by N students)
 ### Competitive Programming
 - ✅ Algorithmic knowledge applied to a real problem (not a `leetcode-solutions` dump)
 - ✅ Live ratings & standings tracked via Codeforces / ICPC badges above
+### ML / Data Science
+- ✅ Evaluation shown, not just training — metrics table, baseline comparison, error analysis
+- ✅ Data handling made explicit (cleaning, leakage checks, splits)
+- ✅ A real plot (loss curve, confusion matrix, forecast vs. actual) over a paragraph of claims
 ### Embedded Systems & Robotics
 - ✅ **Video of the physical system working** — non-negotiable in this domain
 - ✅ Evidence of a **closed feedback loop** (PID tuning graph, SLAM map output, control loop diagram) — not just "wired a sensor"
 - ✅ Documented failure modes — what didn't work, and why
 - ✅ Wiring diagram / schematic included
-### SWE
-- ✅ Architecture decisions explained with tradeoffs, not just a tech-stack badge wall
-- ✅ CI/CD pipeline (green badge = "ships," not "sits in a folder")
-- ✅ Real users where applicable (e.g. SEITC platform — used by N students)
-### ML / Data Science
-- ✅ Evaluation shown, not just training — metrics table, baseline comparison, error analysis
-- ✅ Data handling made explicit (cleaning, leakage checks, splits)
-- ✅ A real plot (loss curve, confusion matrix, forecast vs. actual) over a paragraph of claims
-
-
-Each sprint ends with a real case study in `content/case-studies/` and a
-replaced spoke page — no placeholder should survive past its sprint.
