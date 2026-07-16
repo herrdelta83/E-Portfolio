@@ -64,7 +64,7 @@ uvicorn main:app --reload
 - ✅ Evidence of a **closed feedback loop** (PID tuning graph, SLAM map output, control loop diagram) — not just "wired a sensor"
 - ✅ Documented failure modes — what didn't work, and why
 - ✅ Wiring diagram / schematic included
-### 💻 SWE
+### SWE
 - ✅ Architecture decisions explained with tradeoffs, not just a tech-stack badge wall
 - ✅ CI/CD pipeline (green badge = "ships," not "sits in a folder")
 - ✅ Real users where applicable (e.g. SEITC platform — used by N students)
