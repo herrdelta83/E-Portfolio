@@ -49,24 +49,30 @@ uvicorn main:app --reload
   or [Railway](https://railway.app); point the hub's spoke pages at the
   deployed URL (iframe or fetch).
 
-## 2026 Roadmap
+## Overall Projects
 
-| Phase | Focus | Milestone |
-|---|---|---|
-| Weeks 1–3 | Foundation | This scaffold live on Vercel with real copy |
-| Sprint 1 | SWE | Pick a "Build Your Own X" project, ship as a case study — RAG/tool-using-agent builds (deployed via `agent-service`) count here too |
-| Ongoing | Competitive Programming | Daily/weekly practice; `/api/cp-stats` stays live |
-| Sprint 2 | Machine Learning | Kaggle project or from-scratch model, deployed via `ml-service` |
-| Sprint 3 | Embedded/Robotics | Sensor project → small robot with live telemetry dashboard |
+### Universal (every repo)
+- ✅ Live demo, gif, or screenshot above the fold — not buried in the code
+- ✅ Commit history showing real iteration, not a single dump
+- ✅ Tests included, even minimal
+- ✅ Scoped to do one thing well
+### Competitive Programming
+- ✅ Algorithmic knowledge applied to a real problem (not a `leetcode-solutions` dump)
+- ✅ Live ratings & standings tracked via Codeforces / ICPC badges above
+### Embedded Systems & Robotics
+- ✅ **Video of the physical system working** — non-negotiable in this domain
+- ✅ Evidence of a **closed feedback loop** (PID tuning graph, SLAM map output, control loop diagram) — not just "wired a sensor"
+- ✅ Documented failure modes — what didn't work, and why
+- ✅ Wiring diagram / schematic included
+### 💻 SWE
+- ✅ Architecture decisions explained with tradeoffs, not just a tech-stack badge wall
+- ✅ CI/CD pipeline (green badge = "ships," not "sits in a folder")
+- ✅ Real users where applicable (e.g. SEITC platform — used by N students)
+### ML / Data Science
+- ✅ Evaluation shown, not just training — metrics table, baseline comparison, error analysis
+- ✅ Data handling made explicit (cleaning, leakage checks, splits)
+- ✅ A real plot (loss curve, confusion matrix, forecast vs. actual) over a paragraph of claims
+
 
 Each sprint ends with a real case study in `content/case-studies/` and a
 replaced spoke page — no placeholder should survive past its sprint.
-
-## Next steps in Claude Code
-
-1. `npm install` and confirm `npm run dev` works.
-2. Replace `example.mdx` with your first real case study.
-3. Wire the home page copy to your actual name/links.
-4. Pick the SWE milestone project and start building — this is where
-   Claude Code takes over from chat-based planning.
-here
