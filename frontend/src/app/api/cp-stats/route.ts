@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { CF_HANDLE } from "@/lib/codeforces";
 
 // Milestone 1 for the Competitive Programming spoke:
 // Fetch live stats from Codeforces (and optionally LeetCode's unofficial API)
@@ -6,9 +7,7 @@ import { NextResponse } from "next/server";
 // revalidate on a timer) so the CP dashboard doesn't hit rate limits.
 //
 // Codeforces docs: https://codeforces.com/apiHelp
-// Replace CF_HANDLE below with your handle.
-
-const CF_HANDLE = "your-codeforces-handle";
+// Replace CF_HANDLE in src/lib/codeforces.ts with your handle.
 
 export async function GET() {
   try {
