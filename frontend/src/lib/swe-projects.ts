@@ -31,7 +31,7 @@ export const SWE_PROJECTS: SweProject[] = [
     ],
     ciStatus: "TODO — add CI badge (build + test status)",
     realUsers: "TODO — brigade staff count / clinics using it, if shareable",
-    completion: 0,
+    completion: 80,
   },
   {
     slug: "isp-network-optimization-suite",
@@ -47,7 +47,7 @@ export const SWE_PROJECTS: SweProject[] = [
     ],
     ciStatus: "TODO — add CI badge (SonarQube gate + test status)",
     realUsers: "TODO — deployment scale / link count, if shareable",
-    completion: 0,
+    completion: 100,
   },
 ];
 
