@@ -6,6 +6,7 @@ import MinecraftBackground from "@/components/MinecraftBackground";
 import RetroClock from "@/components/RetroClock";
 import BackToHubButton from "@/components/BackToHubButton";
 import GlassPanel from "@/components/GlassPanel";
+import ProgressBar from "@/components/ProgressBar";
 import type { SweProject } from "@/lib/swe-projects";
 
 export default function ProjectDetail({ project }: { project: SweProject }) {
@@ -62,6 +63,9 @@ export default function ProjectDetail({ project }: { project: SweProject }) {
             </div>
 
             <div className="space-y-4 lg:col-span-2">
+              <div className="rounded-md border border-white/10 bg-black/20 p-4">
+                <ProgressBar value={project.completion} />
+              </div>
               <div className="rounded-md border border-white/10 bg-black/20 p-4">
                 <p className="font-mono text-[11px] uppercase tracking-widest text-signal">CI/CD</p>
                 <p className="mt-1.5 text-sm text-paper/75">{project.ciStatus}</p>

@@ -8,6 +8,25 @@ import CircuitHUD, {
   CIRCUIT_CYAN,
   CIRCUIT_GREEN,
 } from "@/components/CircuitHUD";
+import ProgressBar from "@/components/ProgressBar";
+import { SWE_PROJECTS } from "@/lib/swe-projects";
+import { ML_PROJECTS } from "@/lib/ml-projects";
+import { ROBOTICS_PROJECTS } from "@/lib/robotics-projects";
+import { NOTABLE_PROBLEMS } from "@/lib/cp-problems";
+
+function averageCompletion(items: { completion: number }[]): number {
+  if (items.length === 0) return 0;
+  return Math.round(items.reduce((sum, item) => sum + item.completion, 0) / items.length);
+}
+
+// Aggregate build progress per spoke, hand-set upstream in each project's own
+// data file (src/lib/*-projects.ts) — this just averages whatever's there.
+const SPOKE_PROGRESS: Record<string, number> = {
+  swe: averageCompletion(SWE_PROJECTS),
+  cp: averageCompletion(NOTABLE_PROBLEMS),
+  ml: averageCompletion(ML_PROJECTS),
+  "embedded-robotics": averageCompletion(ROBOTICS_PROJECTS),
+};
 
 const spokes = [
   {
@@ -74,11 +93,17 @@ function SpokeQuadrant({ spoke }: { spoke: (typeof spokes)[number] }) {
         <img src={spoke.image} alt="" className="relative h-full w-full object-contain p-2" />
       </div>
 
-      <div className="relative min-w-0">
+      <div className="relative min-w-0 flex-1">
         <h2 className="font-display text-lg text-[#E8FEFF]">{spoke.label}</h2>
         <p className="mt-2 text-sm leading-relaxed text-[#8FD8DE]/80 group-hover:text-[#E8FEFF]">
           {spoke.blurb}
         </p>
+        <ProgressBar
+          value={SPOKE_PROGRESS[spoke.slug] ?? 0}
+          label="Build progress"
+          variant="cyan"
+          className="mt-3"
+        />
       </div>
     </Link>
   );

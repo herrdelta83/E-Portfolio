@@ -6,6 +6,7 @@ import MinecraftBackground from "@/components/MinecraftBackground";
 import RetroClock from "@/components/RetroClock";
 import BackToHubButton from "@/components/BackToHubButton";
 import GlassPanel from "@/components/GlassPanel";
+import ProgressBar from "@/components/ProgressBar";
 import { SWE_PROJECTS } from "@/lib/swe-projects";
 
 const CORE_STACK = ["Swift", "SwiftUI", "Python", "FastAPI", "C++", "C", "Dart"];
@@ -77,6 +78,7 @@ export default function SoftwareEngineeringPage() {
                 <p className="mt-3 text-sm leading-relaxed text-paper/75">
                   {project.blurb}
                 </p>
+                <ProgressBar value={project.completion} className="mt-4" />
               </Link>
             ))}
           </div>

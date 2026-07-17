@@ -5,6 +5,7 @@ import Link from "next/link";
 import CPBackground from "@/components/CPBackground";
 import BackToHubButton from "@/components/BackToHubButton";
 import GlassPanel from "@/components/GlassPanel";
+import ProgressBar from "@/components/ProgressBar";
 import { NOTABLE_PROBLEMS } from "@/lib/cp-problems";
 
 type CFUser = {
@@ -228,6 +229,7 @@ export default function CompetitiveProgrammingPage() {
                   {problem.source}
                 </p>
                 <p className="mt-3 text-sm leading-relaxed text-paper/75">{problem.blurb}</p>
+                <ProgressBar value={problem.completion} className="mt-4" />
               </Link>
             ))}
           </div>

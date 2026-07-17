@@ -2,6 +2,7 @@ import Link from "next/link";
 import RoboticsBackground from "@/components/RoboticsBackground";
 import BackToHubButton from "@/components/BackToHubButton";
 import GlassPanel from "@/components/GlassPanel";
+import ProgressBar from "@/components/ProgressBar";
 import { ROBOTICS_PROJECTS } from "@/lib/robotics-projects";
 
 export default function EmbeddedRoboticsPage() {
@@ -45,6 +46,7 @@ export default function EmbeddedRoboticsPage() {
                 <p className="mt-3 text-sm leading-relaxed text-paper/75">
                   {project.blurb}
                 </p>
+                <ProgressBar value={project.completion} className="mt-4" />
               </Link>
             ))}
           </div>

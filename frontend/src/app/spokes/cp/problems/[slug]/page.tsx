@@ -3,6 +3,7 @@ import Link from "next/link";
 import CPBackground from "@/components/CPBackground";
 import BackToHubButton from "@/components/BackToHubButton";
 import GlassPanel from "@/components/GlassPanel";
+import ProgressBar from "@/components/ProgressBar";
 import { NOTABLE_PROBLEMS, getNotableProblem } from "@/lib/cp-problems";
 
 export function generateStaticParams() {
@@ -59,6 +60,9 @@ export default async function CpProblemPage({
             </div>
 
             <div className="space-y-4 lg:col-span-2">
+              <div className="rounded-md border border-white/10 bg-black/20 p-4">
+                <ProgressBar value={problem.completion} />
+              </div>
               <div className="rounded-md border border-white/10 bg-black/20 p-4">
                 <p className="font-mono text-[11px] uppercase tracking-widest text-signal">
                   Complexity
