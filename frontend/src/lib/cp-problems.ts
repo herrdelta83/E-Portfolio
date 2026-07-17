@@ -12,6 +12,9 @@ export type NotableProblem = {
   whyInteresting: string;
   problemUrl?: string;
   submissionUrl?: string;
+  // 0-100 — for a problem write-up this tracks how polished the writeup
+  // itself is (statement, approach, complexity), not the problem's difficulty.
+  completion: number;
 };
 
 export const NOTABLE_PROBLEMS: NotableProblem[] = [
@@ -25,6 +28,7 @@ export const NOTABLE_PROBLEMS: NotableProblem[] = [
     complexity: "TODO — time/space complexity analysis.",
     whyInteresting:
       "TODO — what makes this worth featuring over the rest of the problems you've solved.",
+    completion: 0,
   },
 ];
 

@@ -12,6 +12,8 @@ export type RoboticsProject = {
   ciStatus: string;
   videoUrl?: string;
   repoUrl?: string;
+  // 0-100, hand-set by you as work actually progresses.
+  completion: number;
 };
 
 export const ROBOTICS_PROJECTS: RoboticsProject[] = [
@@ -27,6 +29,7 @@ export const ROBOTICS_PROJECTS: RoboticsProject[] = [
       "TODO — documented failure modes: what didn't work, and why.",
     wiringDiagram: "TODO — link or embed the wiring diagram / schematic.",
     ciStatus: "TODO — add CI badge (firmware build + test status)",
+    completion: 0,
   },
 ];
 

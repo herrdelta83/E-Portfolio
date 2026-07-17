@@ -11,6 +11,8 @@ export type MlProject = {
   ciStatus: string;
   liveDemoUrl?: string;
   repoUrl?: string;
+  // 0-100, hand-set by you as work actually progresses.
+  completion: number;
 };
 
 export const ML_PROJECTS: MlProject[] = [
@@ -27,6 +29,7 @@ export const ML_PROJECTS: MlProject[] = [
     plotNote:
       "TODO — a real plot: loss curve, confusion matrix, or forecast vs. actual. Not a paragraph of claims.",
     ciStatus: "TODO — add CI badge (build + test status)",
+    completion: 0,
   },
 ];
 

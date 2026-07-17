@@ -11,6 +11,9 @@ export type SweProject = {
   realUsers: string;
   liveDemoUrl?: string;
   repoUrl?: string;
+  // 0-100, hand-set by you as work actually progresses — not inferred from
+  // anything else here. Bump it whenever you touch the project.
+  completion: number;
 };
 
 export const SWE_PROJECTS: SweProject[] = [
@@ -28,6 +31,7 @@ export const SWE_PROJECTS: SweProject[] = [
     ],
     ciStatus: "TODO — add CI badge (build + test status)",
     realUsers: "TODO — brigade staff count / clinics using it, if shareable",
+    completion: 0,
   },
   {
     slug: "isp-network-optimization-suite",
@@ -43,6 +47,7 @@ export const SWE_PROJECTS: SweProject[] = [
     ],
     ciStatus: "TODO — add CI badge (SonarQube gate + test status)",
     realUsers: "TODO — deployment scale / link count, if shareable",
+    completion: 0,
   },
 ];
 
