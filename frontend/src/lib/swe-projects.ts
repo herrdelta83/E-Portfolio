@@ -49,6 +49,21 @@ export const SWE_PROJECTS: SweProject[] = [
     realUsers: "TODO — deployment scale / link count, if shareable",
     completion: 100,
   },
+  {
+    slug: "untitled-project-1",
+    name: "TODO — name your next SWE project",
+    stack: "TODO — e.g. TypeScript · Next.js · Postgres",
+    blurb:
+      "TODO — one paragraph: what the system does, who it's for, and why it's scoped the way it is.",
+    architecture:
+      "TODO — outline the architecture and the key decision that shaped it.",
+    tradeoffs: [
+      "TODO — the main tradeoff you made and why you'd make it again (or wouldn't)",
+    ],
+    ciStatus: "TODO — add CI badge (build + test status)",
+    realUsers: "TODO — who's actually using it, if shareable",
+    completion: 0,
+  },
 ];
 
 export function getSweProject(slug: string): SweProject | undefined {
