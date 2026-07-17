@@ -49,6 +49,34 @@ type HistoryState =
   | { kind: "error"; message: string }
   | { kind: "ready"; contests: CFContest[] };
 
+type LCDifficultyCount = { difficulty: string; count: number };
+
+type LCMatchedUser = {
+  username: string;
+  submitStats: { acSubmissionNum: LCDifficultyCount[] };
+  profile: { ranking: number };
+};
+
+type LCContestRanking = {
+  attendedContestsCount: number;
+  rating: number;
+  globalRanking: number;
+  topPercentage: number;
+};
+
+type LCGraphQLResponse =
+  | {
+      data: { matchedUser: LCMatchedUser | null; userContestRanking: LCContestRanking | null };
+      errors?: { message: string }[];
+    }
+  | { error: string; details: string };
+
+type LeetCodeState =
+  | { kind: "loading" }
+  | { kind: "unconfigured"; message: string }
+  | { kind: "error"; message: string }
+  | { kind: "ready"; user: LCMatchedUser; contest: LCContestRanking | null };
+
 function Stat({ label, value }: { label: string; value: string | number }) {
   return (
     <div className="rounded-md border border-white/10 bg-black/20 p-5">
@@ -85,6 +113,7 @@ function ContestRow({ contest }: { contest: CFContest }) {
 export default function CompetitiveProgrammingPage() {
   const [state, setState] = useState<StatsState>({ kind: "loading" });
   const [history, setHistory] = useState<HistoryState>({ kind: "loading" });
+  const [leetcode, setLeetcode] = useState<LeetCodeState>({ kind: "loading" });
 
   useEffect(() => {
     let cancelled = false;
@@ -119,6 +148,29 @@ export default function CompetitiveProgrammingPage() {
       })
       .catch((err) => {
         if (!cancelled) setHistory({ kind: "error", message: `${err}` });
+      });
+
+    fetch("/api/cp-stats/leetcode")
+      .then((res) => res.json())
+      .then((data: LCGraphQLResponse) => {
+        if (cancelled) return;
+        if ("error" in data) {
+          setLeetcode({ kind: "error", message: data.details });
+        } else if (!data.data.matchedUser) {
+          setLeetcode({
+            kind: "unconfigured",
+            message: data.errors?.[0]?.message ?? "User not found",
+          });
+        } else {
+          setLeetcode({
+            kind: "ready",
+            user: data.data.matchedUser,
+            contest: data.data.userContestRanking,
+          });
+        }
+      })
+      .catch((err) => {
+        if (!cancelled) setLeetcode({ kind: "error", message: `${err}` });
       });
 
     return () => {
@@ -208,6 +260,73 @@ export default function CompetitiveProgrammingPage() {
                 <p className="mt-3 text-sm text-paper/60">No rated contests yet.</p>
               ))}
           </div>
+
+          <p className="mt-8 font-mono text-xs uppercase tracking-widest text-paper/50">
+            LeetCode dashboard
+          </p>
+
+          {leetcode.kind === "loading" && (
+            <p className="mt-4 text-sm text-paper/60">Fetching live stats…</p>
+          )}
+
+          {leetcode.kind === "unconfigured" && (
+            <p className="mt-4 text-sm text-paper/60">
+              No handle configured yet — set <code className="text-paper">LEETCODE_HANDLE</code> in{" "}
+              <code className="text-paper">src/lib/leetcode.ts</code> to light this up.
+              <span className="mt-1 block text-paper/40">LeetCode says: {leetcode.message}</span>
+            </p>
+          )}
+
+          {leetcode.kind === "error" && (
+            <p className="mt-4 text-sm text-paper/60">
+              Couldn&apos;t reach LeetCode right now.
+              <span className="mt-1 block text-paper/40">{leetcode.message}</span>
+            </p>
+          )}
+
+          {leetcode.kind === "ready" && (
+            <>
+              <h2 className="mt-3 font-display text-2xl text-paper">@{leetcode.user.username}</h2>
+              <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
+                <Stat
+                  label="Solved"
+                  value={
+                    leetcode.user.submitStats.acSubmissionNum.find((d) => d.difficulty === "All")
+                      ?.count ?? "—"
+                  }
+                />
+                <Stat
+                  label="Easy"
+                  value={
+                    leetcode.user.submitStats.acSubmissionNum.find((d) => d.difficulty === "Easy")
+                      ?.count ?? "—"
+                  }
+                />
+                <Stat
+                  label="Medium"
+                  value={
+                    leetcode.user.submitStats.acSubmissionNum.find((d) => d.difficulty === "Medium")
+                      ?.count ?? "—"
+                  }
+                />
+                <Stat
+                  label="Hard"
+                  value={
+                    leetcode.user.submitStats.acSubmissionNum.find((d) => d.difficulty === "Hard")
+                      ?.count ?? "—"
+                  }
+                />
+              </div>
+
+              {leetcode.contest && (
+                <div className="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-3">
+                  <Stat label="Contest rating" value={Math.round(leetcode.contest.rating)} />
+                  <Stat label="Global rank" value={leetcode.contest.globalRanking} />
+                  <Stat label="Top %" value={`${leetcode.contest.topPercentage.toFixed(2)}%`} />
+                </div>
+              )}
+            </>
+          )}
 
           <div className="mt-10 space-y-6">
             <p className="font-mono text-xs uppercase tracking-widest text-paper/50">
