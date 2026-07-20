@@ -44,7 +44,7 @@ uvicorn main:app --reload
 
 ## Deploying
 
-- **Hub**: push to GitHub, import the repo on [Vercel](https://vercel.com).
+- **Hub**: https://e-portfolio-herrdelta83s-projects.vercel.app
 - **ML/Agent services**: deploy each to [Hugging Face Spaces](https://huggingface.co/spaces)
   or [Railway](https://railway.app); point the hub's spoke pages at the
   deployed URL (iframe or fetch).
