@@ -50,11 +50,11 @@ export const SWE_PROJECTS: SweProject[] = [
     completion: 100,
   },
   {
-    slug: "untitled-project-1",
-    name: "TODO — name your next SWE project",
-    stack: "TODO — e.g. TypeScript · Next.js · Postgres",
+    slug: "seitrc-workshop-platform",
+    name: "SEITC Workshop Platform",
+    stack: "FastAPI · React + TypesScript · PostgreSQL · Docker Compose",
     blurb:
-      "TODO — one paragraph: what the system does, who it's for, and why it's scoped the way it is.",
+      "SEITC's Build a Portfolio and LeetCode & DSA 101 workshops. Handles sign-ups, tracks student progress against the NeetCode roadmap, and ranks practice activity on a leaderboard.",
     architecture:
       "TODO — outline the architecture and the key decision that shaped it.",
     tradeoffs: [
@@ -62,6 +62,21 @@ export const SWE_PROJECTS: SweProject[] = [
     ],
     ciStatus: "TODO — add CI badge (build + test status)",
     realUsers: "TODO — who's actually using it, if shareable",
+    completion: 0,
+  },
+  {
+    slug: "physics-rigid-body-engine",
+    name: "Physics / Rigid-Body Engine",
+    stack: "C++",
+    blurb:
+      "A small 2D/3D physics engine from scratch — collision detection (SAT or GJK), constraint solving, and multiplen integrators (Euler, RK4, semi-implicit) with a benchmark comparing energy drift/stability across methods.",
+    architecture:
+      "TODO — outline the offline-first sync architecture: local persistence layer, conflict resolution on reconnect, and why that approach won over a naive last-write-wins sync.",
+    tradeoffs: [
+      "TODO — local-first storage choice vs. a thin client hitting a remote API directly",
+    ],
+    ciStatus: "TODO — add CI badge (build + test status)",
+    realUsers: "TODO — brigade staff count / clinics using it, if shareable",
     completion: 0,
   },
 ];
