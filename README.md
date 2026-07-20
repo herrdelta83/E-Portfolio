@@ -75,7 +75,6 @@ uvicorn main:app --reload
 
 ## Pending
 
-- Start 2nd Phase: Add new projects with a progress bar
 - TODO/SWE: Update info for Projects
   - MBDC: https://github.com/CarlosSanchezGutierrez/Native-iOS-Medical-Brigade-Management-App.git
   - ISP NOS: https://github.com/Silvannnnna/Situacion_Problema2_Equipo3.git
