@@ -19,15 +19,30 @@ export type NotableProblem = {
 
 export const NOTABLE_PROBLEMS: NotableProblem[] = [
   {
-    slug: "untitled-problem-1",
-    name: "TODO — name your first notable problem",
-    source: "TODO — e.g. Codeforces 1234A, or an ICPC Regional 2025 problem",
-    blurb: "TODO — what the problem asks, and why it's not a routine one.",
+    slug: "leetcode-solutions-dump",
+    name: "Leetcode Solutions Dump",
+    source: "C++ · Python · Java",
+    blurb: "2026 - 2027",
     approach:
-      "TODO — the actual algorithmic reasoning: why this approach works, not just the name of the technique.",
-    complexity: "TODO — time/space complexity analysis.",
+      "Algorithmic reasoning: why this approach works, not just the name of the technique. The Goal is 300 problems for 2026.",
+    complexity: "Time/space complexity analysis Big O.",
     whyInteresting:
-      "TODO — what makes this worth featuring over the rest of the problems you've solved.",
+      "Code interviews are a real-world application of algorithmic knowledge. This is a placeholder,swap in your real problem(s) and fill these in.",
+    problemUrl: "https://leetcode.com/problemset/all/",
+    submissionUrl: "https://github.com/herrdelta83/Leetcode-Solutions-Mine-.git",
+    completion: 2.6,
+  },
+  {
+    slug: "codeforces-rounds-dump",
+    name: "Codeforces Rounds Dump",
+    source: "C++ · Python · Java",
+    blurb: "2026 - 2027",
+    approach: 
+      "Aiming to reach 1000 rating, implementing Brute force, Sorting, String manipulation, Basic number theory, Time complexity, and STL Basics",
+    complexity: "Time/space complexity analysis Big O.",
+    whyInteresting: "Codeforces rounds are a real-world application of algorithmic knowledge.",
+    problemUrl: "https://codeforces.com/problemset",
+    submissionUrl: "https://github.com/herrdelta83/Codeforces-Sumbissions-Mine.git",
     completion: 0,
   },
 ];
