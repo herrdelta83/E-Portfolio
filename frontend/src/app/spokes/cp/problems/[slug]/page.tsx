@@ -74,14 +74,14 @@ export default async function CpProblemPage({
                 <div className="mt-1.5 flex flex-col gap-1 text-sm">
                   {problem.problemUrl ? (
                     <a href={problem.problemUrl} className="text-paper/75 underline hover:text-paper">
-                      Problem statement
+                      Problem statements
                     </a>
                   ) : (
                     <span className="text-paper/40">Problem statement — TODO</span>
                   )}
                   {problem.submissionUrl ? (
                     <a href={problem.submissionUrl} className="text-paper/75 underline hover:text-paper">
-                      Accepted submission
+                      Accepted submissions
                     </a>
                   ) : (
                     <span className="text-paper/40">Accepted submission — TODO</span>
