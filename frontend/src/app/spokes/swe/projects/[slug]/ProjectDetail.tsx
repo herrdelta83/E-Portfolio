@@ -82,14 +82,14 @@ export default function ProjectDetail({ project }: { project: SweProject }) {
                       Live demo
                     </a>
                   ) : (
-                    <span className="text-paper/40">Live demo — TODO</span>
+                    <span className="text-paper/40">Live demo</span>
                   )}
                   {project.repoUrl ? (
                     <a href={project.repoUrl} className="text-paper/75 underline hover:text-paper">
                       Repository
                     </a>
                   ) : (
-                    <span className="text-paper/40">Repository — TODO</span>
+                    <span className="text-paper/40">Repository</span>
                   )}
                 </div>
               </div>
