@@ -20,7 +20,7 @@ export const SWE_PROJECTS: SweProject[] = [
   {
     slug: "medical-brigade-data-capture",
     name: "Medical Brigade Data Capture",
-    stack: "Swift · SwiftUI",
+    stack: "Swift · SwiftUI · Swift Data · FastAPI · MySQL",
     blurb:
       "Offline-first iOS app built for an NGO running rural medical brigades. Field staff capture patient intake, vitals, and treatment notes on-site with no connectivity, then sync to a central record once back online — replacing paper charts that used to go missing between clinics.",
     architecture:
@@ -31,12 +31,14 @@ export const SWE_PROJECTS: SweProject[] = [
     ],
     ciStatus: "TODO — add CI badge (build + test status)",
     realUsers: "TODO — brigade staff count / clinics using it, if shareable",
+    liveDemoUrl: "https://demo.example.com/medical-brigade-data-capture",
+    repoUrl: "https://github.com/CarlosSanchezGutierrez/Native-iOS-Medical-Brigade-Management-App.git",
     completion: 80,
   },
   {
     slug: "isp-network-optimization-suite",
     name: "ISP Network Optimization Suite",
-    stack: "C++ · C · Python · FastAPI · SonarQube",
+    stack: "C++ · SonarQube",
     blurb:
       "Internet service optimization system pairing latency-sensitive C++/C routing and diagnostics with a Python/FastAPI control layer. SonarQube gates every merge on unit test coverage and static analysis, catching regressions in the packet-handling core before they reach a live link.",
     architecture:
@@ -47,6 +49,8 @@ export const SWE_PROJECTS: SweProject[] = [
     ],
     ciStatus: "TODO — add CI badge (SonarQube gate + test status)",
     realUsers: "TODO — deployment scale / link count, if shareable",
+    liveDemoUrl: "https://demo.example.com/isp-network-optimization-suite",
+    repoUrl: "https://github.com/Silvannnnna/Situacion_Problema2_Equipo3.git",
     completion: 100,
   },
   {
@@ -62,12 +66,14 @@ export const SWE_PROJECTS: SweProject[] = [
     ],
     ciStatus: "TODO — add CI badge (build + test status)",
     realUsers: "TODO — who's actually using it, if shareable",
+    liveDemoUrl: "https://demo.example.com/seitrc-workshop-platform",
+    repoUrl: "https://github.com/herrdelta83/SEITC-Workshop-Platform.git",
     completion: 0,
   },
   {
     slug: "physics-rigid-body-engine",
-    name: "Physics / Rigid-Body Engine",
-    stack: "C++",
+    name: "Physics / Rigid-Body Engine", 
+    stack: "C++ · OpenGL",
     blurb:
       "A small 2D/3D physics engine from scratch — collision detection (SAT or GJK), constraint solving, and multiplen integrators (Euler, RK4, semi-implicit) with a benchmark comparing energy drift/stability across methods.",
     architecture:
@@ -77,6 +83,8 @@ export const SWE_PROJECTS: SweProject[] = [
     ],
     ciStatus: "TODO — add CI badge (build + test status)",
     realUsers: "TODO — brigade staff count / clinics using it, if shareable",
+    liveDemoUrl: "https://demo.example.com/physics-rigid-body-engine",
+    repoUrl: "https://github.com/herrdelta83/Physics-Rigid-Body-Engine.git",
     completion: 0,
   },
 ];

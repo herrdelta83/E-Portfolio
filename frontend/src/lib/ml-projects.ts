@@ -29,6 +29,8 @@ export const ML_PROJECTS: MlProject[] = [
     plotNote:
       "TODO — a real plot: loss curve, confusion matrix, or forecast vs. actual. Not a paragraph of claims.",
     ciStatus: "TODO — add CI badge (build + test status)",
+    liveDemoUrl: "https://demo.example.com/household-finance-forecasting-tool",
+    repoUrl: "https://github.com/herrdelta83/Household-finance-forecasting-tool.git",
     completion: 0,
   },
   {
@@ -44,6 +46,8 @@ export const ML_PROJECTS: MlProject[] = [
     plotNote:
       "TODO — a real plot: loss curve, confusion matrix, or forecast vs. actual. Not a paragraph of claims.",
     ciStatus: "TODO — add CI badge (build + test status)",
+    liveDemoUrl: "https://demo.example.com/competitive-programming-analytics",
+    repoUrl: "https://github.com/herrdelta83/Competitive-Programming-Analytics.git",
     completion: 0,
   },
 ];

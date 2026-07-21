@@ -29,6 +29,8 @@ export const ROBOTICS_PROJECTS: RoboticsProject[] = [
       "TODO — documented failure modes: what didn't work, and why.",
     wiringDiagram: "TODO — link or embed the wiring diagram / schematic.",
     ciStatus: "TODO — add CI badge (firmware build + test status)",
+    videoUrl: "https://demo.example.com/ros2-rover-with-slam",
+    repoUrl: "https://github.com/herrdelta83/ROS2-Rover-with-SLAM.git",
     completion: 0,
   },
   {
@@ -43,6 +45,8 @@ export const ROBOTICS_PROJECTS: RoboticsProject[] = [
       "TODO — documented failure modes: what didn't work, and why.",
     wiringDiagram: "TODO — link or embed the wiring diagram / schematic.",
     ciStatus: "TODO — add CI badge (firmware build + test status)",
+    videoUrl: "https://demo.example.com/imu-racquetball-swing-analyzer",
+    repoUrl: "https://github.com/herrdelta83/IMU-Racquetball-Swing-Analyzer.git",
     completion: 0,
   },
   {
@@ -57,6 +61,8 @@ export const ROBOTICS_PROJECTS: RoboticsProject[] = [
       "TODO — documented failure modes: what didn't work, and why.",
     wiringDiagram: "TODO — link or embed the wiring diagram / schematic.",
     ciStatus: "TODO — add CI badge (firmware build + test status)",
+    videoUrl: "https://demo.example.com/racquetball-cv-trajectory-analyzer",
+    repoUrl: "https://github.com/herrdelta83/Racquetball-CV-Trajectory-Analyzer.git",
     completion: 0,
   },
 ];
