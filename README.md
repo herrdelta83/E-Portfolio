@@ -72,9 +72,3 @@ uvicorn main:app --reload
 - ✅ Evidence of a **closed feedback loop** (PID tuning graph, SLAM map output, control loop diagram) — not just "wired a sensor"
 - ✅ Documented failure modes — what didn't work, and why
 - ✅ Wiring diagram / schematic included
-
-## Pending
-
-- TODO/SWE: Update info for Projects
-  - MBDC: https://github.com/CarlosSanchezGutierrez/Native-iOS-Medical-Brigade-Management-App.git
-  - ISP NOS: https://github.com/Silvannnnna/Situacion_Problema2_Equipo3.git
