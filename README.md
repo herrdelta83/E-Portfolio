@@ -4,6 +4,26 @@ A hub-and-spokes portfolio covering: Software Engineering (including
 AI-integrated projects like RAG pipelines), Competitive Programming, Machine
 Learning, and Embedded Systems & Robotics.
 
+## Tech Stack
+
+**Frontend**
+- [Next.js 15](https://nextjs.org) (App Router) + [React 19](https://react.dev) + TypeScript
+- [Tailwind CSS 3](https://tailwindcss.com) — editorial off-white baseline used on every spoke
+- [Arwes](https://arwes.dev) (`@arwes/react`) — sci-fi HUD framework, hub page only (dark cyberpunk exception, see `CLAUDE.md`)
+- [Framer Motion](https://www.framer.com/motion/) / [Motion](https://motion.dev) — per-spoke background animation (Minecraft day/night cycle, CP terminal loop, ML robot arm, space float)
+- [MDX](https://mdxjs.com) (`@next/mdx`, `@mdx-js/react`) — case study write-ups in `content/case-studies/`
+
+**Backend (stubs)**
+- [FastAPI](https://fastapi.tiangolo.com) + Pydantic (Python) — `services/ml-service/`, `services/agent-service/`
+
+**Live data integrations**
+- [Codeforces API](https://codeforces.com/apiHelp) — CP spoke rating/contest history
+- LeetCode's internal GraphQL endpoint (no official public API) — CP spoke solved-count/contest stats
+
+**Deployment**
+- [Vercel](https://vercel.com) — frontend hub + all spokes
+- Root Directory set to `frontend`; see `frontend/.npmrc` (`legacy-peer-deps=true`, required by Arwes's current prerelease against React 19)
+
 ## Structure
 
 ```
