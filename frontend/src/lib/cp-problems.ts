@@ -45,6 +45,19 @@ export const NOTABLE_PROBLEMS: NotableProblem[] = [
     submissionUrl: "https://github.com/herrdelta83/Codeforces-Sumbissions-Mine.git",
     completion: 0,
   },
+  {
+    slug: "icpc-training-camp-2026",
+    name: "ICPC Training Camp 2026",
+    source: "C++ · Python",
+    blurb: "2026 Guadalajara",
+    approach:
+      "10 days of contets, upsolving, two finalist coaches, in division C",
+    complexity: "Time/space complexity analysis Big-O",
+    whyInteresting: "ICPC is a respected collegiate programming competition by computer students chaper (ACM)",
+    problemUrl: "https://codeforces.com/problemset",
+    submissionUrl: "https://github.com/herrdelta83/ICPC-Training-Camp-Dump.git",
+    completion: 0,
+  },
 ];
 
 export function getNotableProblem(slug: string): NotableProblem | undefined {
