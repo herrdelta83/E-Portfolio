@@ -108,8 +108,8 @@ export const SWE_PROJECTS: SweProject[] = [
     completion: 100,
   },
   {
-    slug: "seitrc-workshop-platform",
-    name: "SEITC Workshop Platform",
+    slug: "seitc-platform",
+    name: "SEITC Platform",
     stack: "FastAPI · React + TypesScript · PostgreSQL · Docker Compose",
     blurb:
       "SEITC's Build a Portfolio and LeetCode & DSA 101 workshops. Handles sign-ups, tracks student progress against the NeetCode roadmap, and ranks practice activity on a leaderboard.",

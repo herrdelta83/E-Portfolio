@@ -14,6 +14,27 @@ import { ML_PROJECTS } from "@/lib/ml-projects";
 import { ROBOTICS_PROJECTS } from "@/lib/robotics-projects";
 import { NOTABLE_PROBLEMS } from "@/lib/cp-problems";
 
+// The circuit board background draws in at CIRCUIT_BUILD_DURATION (root
+// Animator enter, shared by CircuitHUD's <Animated animated={["draw"]}> traces
+// via context). Every UI frame below is its own Animator merging duration
+// against the SAME global provider — so without an override they'd all take
+// just as long to draw in as the board itself. Two independent overrides:
+// SHELL_REVEAL_DURATION for the title bar, intro line, and the outer frame
+// wrapping the whole 2x2 grid; SPOKE_REVEAL_DURATION for each individual
+// spoke quadrant's own frame, inside that shell.
+const SHELL_REVEAL_DURATION = 0.4;
+const SPOKE_REVEAL_DURATION = 0.6;
+const SPOKE_STAGGER = 0;
+// Gap before spokes start entering at all, on top of SHELL_REVEAL_DURATION —
+// Arwes's own term for this is duration.delay (not to be confused with
+// duration.stagger, which only spaces sibling spokes apart from each other).
+const SPOKE_REVEAL_DELAY = 0;
+// Spacing between the root's own top-level siblings — header, intro line,
+// and the outer grid frame — before each one is told to start entering.
+// Was previously left at Arwes's built-in default (0.04s); now explicit here
+// so it's tunable alongside SPOKE_STAGGER instead of hidden.
+const SHELL_STAGGER = 0;
+
 function averageCompletion(items: { completion: number }[]): number {
   if (items.length === 0) return 0;
   return Math.round(items.reduce((sum, item) => sum + item.completion, 0) / items.length);
@@ -112,12 +133,12 @@ function SpokeQuadrant({ spoke }: { spoke: (typeof spokes)[number] }) {
 export default function Home() {
   return (
     <AnimatorGeneralProvider duration={{ enter: CIRCUIT_BUILD_DURATION, exit: 1 }}>
-      <Animator root active manager="stagger">
+      <Animator root active manager="stagger" duration={{ stagger: SHELL_STAGGER }}>
         <CircuitHUD />
 
         <main className="relative mx-auto max-w-6xl px-6 py-16">
           {/* header bar */}
-          <Animator>
+          <Animator duration={{ enter: SHELL_REVEAL_DURATION }}>
             <Animated className="relative mb-10 px-6 py-5" hideOnExited={false}>
               <FrameOctagon style={framePanelStyle} strokeWidth={1.5} squareSize={18} />
               <div className="relative flex items-center justify-between">
@@ -137,7 +158,7 @@ export default function Home() {
             </Animated>
           </Animator>
 
-          <Animator>
+          <Animator duration={{ enter: SHELL_REVEAL_DURATION }}>
             <Animated as="p" className="mb-10 max-w-xl text-sm text-[#8FD8DE]/80" animated={["fade"]}>
               Four cores, one build year. Each section below is a working system,
               not a screenshot.
@@ -145,13 +166,13 @@ export default function Home() {
           </Animator>
 
           {/* 2x2 grid, wrapped in one outer frame */}
-          <Animator>
+          <Animator duration={{ enter: SHELL_REVEAL_DURATION }}>
             <Animated className="relative" hideOnExited={false}>
               <FrameOctagon style={framePanelStyle} strokeWidth={1.5} squareSize={18} />
-              <Animator manager="stagger">
+              <Animator manager="stagger" duration={{ stagger: SPOKE_STAGGER }}>
                 <div className="relative grid divide-y divide-[#00F0FF]/15 sm:grid-cols-2 sm:divide-x sm:divide-y-0">
                   {spokes.map((s) => (
-                    <Animator key={s.slug}>
+                    <Animator key={s.slug} duration={{ enter: SPOKE_REVEAL_DURATION, delay: SPOKE_REVEAL_DELAY }}>
                       <SpokeQuadrant spoke={s} />
                     </Animator>
                   ))}
