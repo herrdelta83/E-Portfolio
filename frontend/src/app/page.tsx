@@ -130,6 +130,67 @@ function SpokeQuadrant({ spoke }: { spoke: (typeof spokes)[number] }) {
   );
 }
 
+// Contact/profile chips below the 2x2 grid — same chamfered-frame + pin-tick
+// look as CircuitHUD's decorative IC chip badge, but real interactive links.
+// TODO: swap in your actual LinkedIn URL.
+const SOCIAL_LINKS = [
+  { label: "GitHub", href: "https://github.com/herrdelta83", icon: "/images/desktop/github.png" },
+  { label: "LinkedIn", href: "https://linkedin.com/in/leonelbailonsifuentes", icon: "/images/desktop/LinkedIn.png" },
+  {
+    label: "Gmail",
+    href: "https://mail.google.com/mail/?view=cm&fs=1&to=bailondelta@gmail.com",
+    icon: "/images/desktop/gmail.png",
+  },
+];
+
+const SOCIAL_CHIP_PINS = 4;
+
+function SocialChip({ link }: { link: (typeof SOCIAL_LINKS)[number] }) {
+  const [hovered, setHovered] = useState(false);
+
+  return (
+    <a
+      href={link.href}
+      target="_blank"
+      rel="noopener noreferrer"
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      className="group flex flex-col items-center gap-2"
+    >
+      <div className="relative" style={{ width: 88, height: 88 }}>
+        {/* pin ticks — top & bottom edges, same idea as CircuitHUD's chip badge */}
+        <div className="pointer-events-none absolute inset-x-2 -top-2 flex justify-between">
+          {Array.from({ length: SOCIAL_CHIP_PINS }).map((_, i) => (
+            <span key={i} className="h-2 w-px bg-[#00F0FF]" />
+          ))}
+        </div>
+        <div className="pointer-events-none absolute inset-x-2 -bottom-2 flex justify-between">
+          {Array.from({ length: SOCIAL_CHIP_PINS }).map((_, i) => (
+            <span key={i} className="h-2 w-px bg-[#00F0FF]" />
+          ))}
+        </div>
+
+        <Animated
+          className="absolute inset-0 transition-[filter] duration-300 ease-out"
+          hideOnExited={false}
+          style={{
+            filter: hovered
+              ? `drop-shadow(0 0 4px ${CIRCUIT_CYAN}) drop-shadow(0 0 12px ${CIRCUIT_CYAN})`
+              : "none",
+          }}
+        >
+          <FrameOctagon style={framePanelStyle} strokeWidth={hovered ? 2.5 : 1.5} squareSize={12} />
+        </Animated>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={link.icon} alt="" className="relative h-full w-full object-contain p-4" />
+      </div>
+      <span className="font-mono text-xs uppercase tracking-widest text-[#8FD8DE]/80 group-hover:text-[#E8FEFF]">
+        {link.label}
+      </span>
+    </a>
+  );
+}
+
 export default function Home() {
   return (
     <AnimatorGeneralProvider duration={{ enter: CIRCUIT_BUILD_DURATION, exit: 1 }}>
@@ -147,7 +208,7 @@ export default function Home() {
                     2026 build log
                   </p>
                   <h1 className="mt-2 font-display text-3xl text-[#E8FEFF] sm:text-4xl">
-                    Leonel — Electronic Portfolio
+                    Leonel Dev | Software Engineer Student
                   </h1>
                 </div>
                 <div className="hidden items-center gap-2 font-mono text-xs uppercase tracking-widest text-[#00FF55] sm:flex">
@@ -174,6 +235,24 @@ export default function Home() {
                   {spokes.map((s) => (
                     <Animator key={s.slug} duration={{ enter: SPOKE_REVEAL_DURATION, delay: SPOKE_REVEAL_DELAY }}>
                       <SpokeQuadrant spoke={s} />
+                    </Animator>
+                  ))}
+                </div>
+              </Animator>
+            </Animated>
+          </Animator>
+
+          {/* contact/profile chips */}
+          <Animator duration={{ enter: SHELL_REVEAL_DURATION }}>
+            <Animated className="relative mt-10" hideOnExited={false}>
+              <Animator manager="stagger" duration={{ stagger: SPOKE_STAGGER }}>
+                <div className="flex items-center justify-center gap-12">
+                  {SOCIAL_LINKS.map((link) => (
+                    <Animator
+                      key={link.label}
+                      duration={{ enter: SPOKE_REVEAL_DURATION, delay: SPOKE_REVEAL_DELAY }}
+                    >
+                      <SocialChip link={link} />
                     </Animator>
                   ))}
                 </div>

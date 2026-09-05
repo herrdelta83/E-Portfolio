@@ -2,14 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
-/* --font-display / --font-body / --font-mono are now set by next/font/google
-   in layout.tsx (via each font's `variable` option on <html>), not here —
-   that's what actually loads them instead of silently falling back. */
+/* --font-mono is set by next/font/google in layout.tsx (via its `variable`
+   option on <html>) — that's what actually loads it instead of silently
+   falling back. --font-display and --font-body are the exceptions: both are
+   set below, permanently (chosen via FontLab, now deactivated — see its
+   TODO in src/components/FontLab.tsx if it's ever needed again). */
 
-/* Sci-fi font candidates for FontLab's live switcher (src/components/FontLab.tsx).
-   Blanka/Anurati/Conthrax aren't on Google Fonts — drop the files yourself into
-   public/fonts/ using the filenames below; until then these three silently
-   fall back to --font-display, same as any other missing @font-face. */
+/* Blanka/Anurati/Conthrax aren't on Google Fonts — this is the local file
+   each needs, dropped into public/fonts/ using the filenames below. */
 @font-face {
   font-family: "Blanka";
   src: url("/fonts/Blanka-Regular.woff2") format("woff2");
@@ -27,15 +27,25 @@
 }
 
 :root {
-  /* Plain generic fallbacks only — NOT var(--font-display). FontLab assigns
-     these straight onto --font-display itself, so a fallback that pointed
-     back at --font-display would be a same-element cycle (--font-display ->
-     --font-blanka -> --font-display), which CSS resolves as fully invalid
-     rather than "use the other one" — the bug that made all three silently
-     no-op back to whatever the browser's default inherited font was. */
+  /* Plain generic fallbacks only — NOT var(--font-display) or var(--font-body).
+     FontLab assigns these straight onto --font-display/--font-body, so a
+     fallback pointing back at either would be a same-element cycle (e.g.
+     --font-display -> --font-blanka -> --font-display), which CSS resolves
+     as fully invalid rather than "use the other one" — the bug that made
+     all three silently no-op back to the browser's default inherited font. */
   --font-blanka: "Blanka", serif;
   --font-anurati: "Anurati", sans-serif;
   --font-conthrax: "Conthrax", sans-serif;
+
+  /* The real, permanent title/subtitle font — chosen via FontLab. Falls back
+     to the old IBM Plex Serif baseline (still loaded in layout.tsx), then a
+     generic serif, if the local Conthrax file ever fails to load. */
+  --font-display: "Conthrax", var(--font-plex-serif), serif;
+
+  /* The real, permanent body-text font — also chosen via FontLab. Falls back
+     to the old Inter baseline (still loaded in layout.tsx), then a generic
+     monospace, if Space Mono ever fails to load. */
+  --font-body: "Space Mono", var(--font-inter), monospace;
 }
 
 body {
