@@ -80,73 +80,21 @@ const ACTIVE_TRACES: ActiveTrace[] = [
   { points: [[0, 940], [180, 940], [220, 980], [220, 1080]], color: CIRCUIT_CYAN, drawDuration: 1.5, packetDuration: 3.8, packetDelay: 1.6 },
 ];
 
-// Decorative corner IC chip badge — static (doesn't build in or pulse),
-// same 1920x1080 viewBox coordinate space as the traces above it.
-const CHIP_PINS_PER_SIDE = 5;
-const CHIP_X = 1700;
-const CHIP_Y = 50;
-const CHIP_SIZE = 160;
-const CHIP_PIN_LEN = 14;
-
-function ChipBadge() {
-  const pinPositions = Array.from(
-    { length: CHIP_PINS_PER_SIDE },
-    (_, i) => ((i + 1) * CHIP_SIZE) / (CHIP_PINS_PER_SIDE + 1)
-  );
-  return (
-    <g
-      transform={`translate(${CHIP_X},${CHIP_Y})`}
-      style={{ filter: `drop-shadow(0 0 4px ${CIRCUIT_CYAN})` }}
-    >
-      <rect
-        x={0}
-        y={0}
-        width={CHIP_SIZE}
-        height={CHIP_SIZE}
-        fill="rgba(2,17,20,0.7)"
-        stroke={CIRCUIT_CYAN}
-        strokeWidth={1.5}
-      />
-      {pinPositions.map((pos) => (
-        <g key={pos}>
-          <line x1={pos} y1={-CHIP_PIN_LEN} x2={pos} y2={0} stroke={CIRCUIT_CYAN} strokeWidth={2} />
-          <line x1={pos} y1={CHIP_SIZE} x2={pos} y2={CHIP_SIZE + CHIP_PIN_LEN} stroke={CIRCUIT_CYAN} strokeWidth={2} />
-          <line x1={-CHIP_PIN_LEN} y1={pos} x2={0} y2={pos} stroke={CIRCUIT_CYAN} strokeWidth={2} />
-          <line x1={CHIP_SIZE} y1={pos} x2={CHIP_SIZE + CHIP_PIN_LEN} y2={pos} stroke={CIRCUIT_CYAN} strokeWidth={2} />
-        </g>
-      ))}
-      <text
-        x={CHIP_SIZE / 2}
-        y={CHIP_SIZE / 2 - 6}
-        textAnchor="middle"
-        fontFamily="var(--font-mono, monospace)"
-        fontSize={30}
-        fill={CIRCUIT_CYAN}
-      >
-        IC
-      </text>
-      <text
-        x={CHIP_SIZE / 2}
-        y={CHIP_SIZE / 2 + 22}
-        textAnchor="middle"
-        fontFamily="var(--font-mono, monospace)"
-        fontSize={10}
-        letterSpacing={1}
-        fill={CIRCUIT_CYAN}
-        opacity={0.6}
-      >
-        SN // LEONEL-2026
-      </text>
-    </g>
-  );
-}
-
 export default function CircuitHUD() {
   return (
     <div
       className="pointer-events-none fixed inset-0 -z-10 overflow-hidden"
-      style={{ backgroundColor: CIRCUIT_VOID }}
+      style={{
+        backgroundColor: CIRCUIT_VOID,
+        backgroundImage: "url(/images/desktop/PCB.jpg)",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
     >
+      {/* Dark void tint over the PCB photo so it reads as texture, not a
+          bright distraction — traces/panels/text on top stay legible. */}
+      <div className="absolute inset-0" style={{ backgroundColor: "rgba(2,17,20,0.82)" }} />
+
       <svg
         className="h-full w-full"
         viewBox="0 0 1920 1080"
@@ -208,8 +156,6 @@ export default function CircuitHUD() {
             </g>
           );
         })}
-
-        <ChipBadge />
       </svg>
     </div>
   );
