@@ -130,6 +130,56 @@ function SpokeQuadrant({ spoke }: { spoke: (typeof spokes)[number] }) {
   );
 }
 
+// Infinite-scrolling tech strip (languages + frameworks/tools), sandwiched
+// between the swe/cp row and the ml/embedded-robotics row (see the grid
+// split in Home() below) — its width comes for free from sitting inside the
+// same outer frame as the grid, so it always spans exactly the spokes' own
+// horizontal extent.
+const TECH_ICONS = [
+  { label: "Python", icon: "/images/desktop/python.png" },
+  { label: "C", icon: "/images/desktop/c.png" },
+  { label: "C++", icon: "/images/desktop/cplusplus.png" },
+  { label: "C#", icon: "/images/desktop/csharp.png" },
+  { label: "Swift", icon: "/images/desktop/swift.png" },
+  { label: "TypeScript", icon: "/images/desktop/ts.png" },
+  { label: "Java", icon: "/images/desktop/java.png" },
+  { label: "Arduino", icon: "/images/desktop/arduino.png" },
+  { label: "ROS", icon: "/images/desktop/ros.png" },
+  { label: "OpenCV", icon: "/images/desktop/opencv.png" },
+  { label: "Unity", icon: "/images/desktop/unity.png" },
+  { label: "MATLAB", icon: "/images/desktop/matlab.png" },
+];
+
+const EDGE_FADE_MASK =
+  "linear-gradient(to right, transparent, black 8%, black 92%, transparent)";
+
+function TechMarquee() {
+  // Duplicated once so the track can loop seamlessly — animate-marquee (see
+  // tailwind.config.ts) translates exactly -50%, landing back on an
+  // identical copy of the list with no visible seam or jump.
+  const track = [...TECH_ICONS, ...TECH_ICONS];
+
+  return (
+    <div
+      className="relative w-full overflow-hidden bg-black/10 py-4"
+      style={{ WebkitMaskImage: EDGE_FADE_MASK, maskImage: EDGE_FADE_MASK }}
+    >
+      <div className="flex w-max animate-marquee items-center gap-12 hover:[animation-play-state:paused]">
+        {track.map((lang, i) => (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            key={`${lang.label}-${i}`}
+            src={lang.icon}
+            alt={lang.label}
+            title={lang.label}
+            className="h-8 w-8 shrink-0 object-contain opacity-80 transition-opacity hover:opacity-100"
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
+
 // Contact/profile chips below the 2x2 grid — same chamfered-frame + pin-tick
 // look as CircuitHUD's decorative IC chip badge, but real interactive links.
 // TODO: swap in your actual LinkedIn URL.
@@ -219,24 +269,35 @@ export default function Home() {
             </Animated>
           </Animator>
 
-          <Animator duration={{ enter: SHELL_REVEAL_DURATION }}>
-            <Animated as="p" className="mb-10 max-w-xl text-sm text-[#8FD8DE]/80" animated={["fade"]}>
-              Four cores, one build year. Each section below is a working system,
-              not a screenshot.
-            </Animated>
-          </Animator>
-
-          {/* 2x2 grid, wrapped in one outer frame */}
+          {/* 2x2 grid, wrapped in one outer frame — split into two explicit
+              rows (swe/cp, then ml/embedded-robotics) with TechMarquee
+              sandwiched between them, instead of one 4-item autoflow grid. */}
           <Animator duration={{ enter: SHELL_REVEAL_DURATION }}>
             <Animated className="relative" hideOnExited={false}>
               <FrameOctagon style={framePanelStyle} strokeWidth={1.5} squareSize={18} />
               <Animator manager="stagger" duration={{ stagger: SPOKE_STAGGER }}>
-                <div className="relative grid divide-y divide-[#00F0FF]/15 sm:grid-cols-2 sm:divide-x sm:divide-y-0">
-                  {spokes.map((s) => (
-                    <Animator key={s.slug} duration={{ enter: SPOKE_REVEAL_DURATION, delay: SPOKE_REVEAL_DELAY }}>
-                      <SpokeQuadrant spoke={s} />
-                    </Animator>
-                  ))}
+                <div className="relative flex flex-col divide-y divide-[#00F0FF]/15">
+                  <div className="grid sm:grid-cols-2 sm:divide-x sm:divide-[#00F0FF]/15">
+                    {spokes.slice(0, 2).map((s) => (
+                      <Animator key={s.slug} duration={{ enter: SPOKE_REVEAL_DURATION, delay: SPOKE_REVEAL_DELAY }}>
+                        <SpokeQuadrant spoke={s} />
+                      </Animator>
+                    ))}
+                  </div>
+
+                  <Animator duration={{ enter: SPOKE_REVEAL_DURATION, delay: SPOKE_REVEAL_DELAY }}>
+                    <Animated hideOnExited={false} animated={["fade"]}>
+                      <TechMarquee />
+                    </Animated>
+                  </Animator>
+
+                  <div className="grid sm:grid-cols-2 sm:divide-x sm:divide-[#00F0FF]/15">
+                    {spokes.slice(2, 4).map((s) => (
+                      <Animator key={s.slug} duration={{ enter: SPOKE_REVEAL_DURATION, delay: SPOKE_REVEAL_DELAY }}>
+                        <SpokeQuadrant spoke={s} />
+                      </Animator>
+                    ))}
+                  </div>
                 </div>
               </Animator>
             </Animated>
