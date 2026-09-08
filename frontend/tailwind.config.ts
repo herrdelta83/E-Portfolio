@@ -12,7 +12,15 @@ const config: Config = {
         ink: "#0B0E11",
         paper: "#F7F5F0",
         circuit: "#3E7CB1",
-        signal: "#D4A657",
+        // Was gold (#D4A657) — spokes used to have their own signal-gold
+        // accent, distinct from the hub's cyan. All pages now share one look
+        // (see CLAUDE.md), so this token retargets to the hub's cyan
+        // (CIRCUIT_CYAN in CircuitHUD.tsx — keep these two in sync). Every
+        // existing text-signal/border-signal/etc. across the spoke + detail
+        // pages repaints from this one value; the name "signal" itself is
+        // now legacy, kept only so those hundreds of class references don't
+        // need touching.
+        signal: "#00F0FF",
       },
       fontFamily: {
         display: ["var(--font-display)"],
