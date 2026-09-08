@@ -1,9 +1,9 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import MLBackground from "@/components/MLBackground";
 import BackToHubButton from "@/components/BackToHubButton";
 import GlassPanel from "@/components/GlassPanel";
 import ProgressBar from "@/components/ProgressBar";
+import SocialLinks from "@/components/SocialLinks";
 import { ML_PROJECTS, getMlProject } from "@/lib/ml-projects";
 
 export function generateStaticParams() {
@@ -21,14 +21,13 @@ export default async function MlProjectPage({
   if (!project) notFound();
 
   return (
-    <main className="relative min-h-screen overflow-hidden">
-      <MLBackground />
+    <main className="relative mx-auto max-w-6xl px-6 py-16">
       <BackToHubButton />
 
-      <div className="relative z-20 mx-auto flex min-h-screen max-w-5xl items-center px-6 py-16">
-        <GlassPanel>
+      <GlassPanel>
           <Link
             href="/spokes/ml"
+            prefetch={false}
             className="font-mono text-xs uppercase tracking-widest text-signal/70 hover:text-signal"
           >
             ← Machine Learning
@@ -93,6 +92,9 @@ export default async function MlProjectPage({
             </div>
           </div>
         </GlassPanel>
+
+      <div className="mt-10">
+        <SocialLinks />
       </div>
     </main>
   );

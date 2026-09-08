@@ -66,26 +66,38 @@ type ActiveTrace = {
 };
 
 const ACTIVE_TRACES: ActiveTrace[] = [
-  { points: [[0, 90], [260, 90], [300, 130], [300, 260], [640, 260]], color: CIRCUIT_CYAN, drawDuration: 1.6, packetDuration: 4.2, packetDelay: 0 },
-  { points: [[1920, 160], [1600, 160], [1560, 200], [1560, 340], [1260, 340], [1220, 380], [980, 380]], color: CIRCUIT_CYAN, drawDuration: 2, packetDuration: 5, packetDelay: 0.4 },
-  { points: [[0, 520], [220, 520], [220, 660], [500, 660]], color: CIRCUIT_GREEN, drawDuration: 1.4, packetDuration: 3.6, packetDelay: 0.8 },
-  { points: [[1920, 620], [1700, 620], [1660, 580], [1450, 580], [1450, 720], [1150, 720]], color: CIRCUIT_CYAN, drawDuration: 1.9, packetDuration: 4.6, packetDelay: 1.1 },
-  { points: [[140, 1080], [140, 800], [420, 800], [420, 960], [700, 960]], color: CIRCUIT_CYAN, drawDuration: 1.7, packetDuration: 4, packetDelay: 0.2 },
-  { points: [[1920, 880], [1650, 880], [1650, 980], [1330, 980]], color: CIRCUIT_GREEN, drawDuration: 1.3, packetDuration: 3.4, packetDelay: 1.4 },
-  { points: [[0, 40], [160, 40], [200, 80], [200, 200], [400, 200]], color: CIRCUIT_CYAN, drawDuration: 1.5, packetDuration: 3.8, packetDelay: 0.6 },
-  { points: [[1920, 30], [1780, 30], [1780, 190], [1540, 190], [1540, 60]], color: CIRCUIT_CYAN, drawDuration: 2.1, packetDuration: 5.2, packetDelay: 1.7 },
-  { points: [[300, 0], [300, 160], [520, 160], [560, 200]], color: CIRCUIT_CYAN, drawDuration: 1.4, packetDuration: 3.6, packetDelay: 0.3 },
-  { points: [[1760, 1080], [1760, 900], [1500, 900], [1500, 1000]], color: CIRCUIT_GREEN, drawDuration: 1.6, packetDuration: 4.2, packetDelay: 0.9 },
-  { points: [[860, 1080], [860, 940], [1080, 940], [1080, 1080]], color: CIRCUIT_CYAN, drawDuration: 1.3, packetDuration: 3.4, packetDelay: 1.2 },
-  { points: [[0, 940], [180, 940], [220, 980], [220, 1080]], color: CIRCUIT_CYAN, drawDuration: 1.5, packetDuration: 3.8, packetDelay: 1.6 },
+  { points: [[297, 190], [297, 220], [252, 269], [252, 385], [295, 425], [295, 540], [355, 599], [369, 599]], color: CIRCUIT_CYAN, drawDuration: 1.6, packetDuration: 4.2, packetDelay: 0 },
+  { points: [[1665, 214], [1585, 214], [1555, 240], [1555, 310], [1545, 319], [1483, 319]], color: CIRCUIT_CYAN, drawDuration: 2, packetDuration: 5, packetDelay: 0.4 },
+  { points: [[152, 520], [220, 520], [225, 525], [225, 658], [228, 662], [515, 662], [520, 658], [545, 658]], color: CIRCUIT_GREEN, drawDuration: 1.4, packetDuration: 3.6, packetDelay: 0.8 },
+  { points: [[1731, 302], [1731, 415], [1540, 610], [1450, 610], [1372, 690], [1372, 915], [1355, 935], [1205, 935], [1170, 900], [1027, 900], [1005, 920]], color: CIRCUIT_CYAN, drawDuration: 1.9, packetDuration: 4.6, packetDelay: 1.1 },
+  { points: [[110, 650], [145, 650], [163, 668], [163, 742], [245, 825], [360, 825], [400, 863], [400, 972], [413, 988], [480, 988], [502, 968], [705, 968]], color: CIRCUIT_CYAN, drawDuration: 1.7, packetDuration: 4, packetDelay: 0.2 },
+  { points: [[1332, 988], [1503, 988], [1503, 910], [1545, 910], [1550, 900], [1550, 838], [1540, 832], [1495, 832], [1484, 838], [1484, 955], [1478, 962], 
+    [1373, 962], [1372, 945], [1387, 932], [1391, 918], [1472, 918], [1472, 840], [1490, 822], [1558, 822], [1562, 825], [1562, 946], [1600, 987], [1655, 987],
+    [1655, 885]], color: CIRCUIT_GREEN, drawDuration: 1.3, packetDuration: 3.4, packetDelay: 1.4 },
+  { points: [[110, 618], [157, 618], [183, 642], [183, 732], [255, 805], [425, 805], [425, 967], [470, 967], [495, 945], [700, 945]], color: CIRCUIT_CYAN, drawDuration: 1.5, packetDuration: 3.8, packetDelay: 0.6 },
+  { points: [[1665, 182], [1573, 182], [1510, 246], [650, 246], [633, 262]], color: CIRCUIT_CYAN, drawDuration: 2.1, packetDuration: 5.2, packetDelay: 1.7 },
+  { points: [[357, 533], [328, 507], [328, 400], [317, 390], [310, 390], [287, 370], [287, 297], [378, 205], [378, 136], [410, 105], [870, 105]], color: CIRCUIT_CYAN, drawDuration: 1.4, packetDuration: 3.6, packetDelay: 0.3 },
+  { points: [[1620, 909], [1764, 909], [1774, 900], [1774, 811], [1596, 811], [1596, 822], [1579, 822], [1574, 815], [1574, 634], [1684, 522], [1755, 522], 
+    [1762, 530], [1762, 782], [1758, 789], [1700, 789], [1669, 760], [1669, 700], [1655, 700]], color: CIRCUIT_GREEN, drawDuration: 1.6, packetDuration: 4.2, packetDelay: 0.9 },
+  { points: [[865, 995], [865, 948], [1083, 948], [1083, 1050]], color: CIRCUIT_CYAN, drawDuration: 1.3, packetDuration: 3.4, packetDelay: 1.2 },
+  { points: [[3, 948], [75, 948], [185, 948], [222, 985],[222, 1010]], color: CIRCUIT_CYAN, drawDuration: 1.5, packetDuration: 3.8, packetDelay: 1.6 },
 ];
 
 export default function CircuitHUD() {
   return (
     <div
       className="pointer-events-none fixed inset-0 -z-10 overflow-hidden"
-      style={{ backgroundColor: CIRCUIT_VOID }}
+      style={{
+        backgroundColor: CIRCUIT_VOID,
+        backgroundImage: "url(/images/desktop/PCB.jpg)",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
     >
+      {/* Dark void tint over the PCB photo so it reads as texture, not a
+          bright distraction — traces/panels/text on top stay legible. */}
+      <div className="absolute inset-0" style={{ backgroundColor: "rgba(2,17,20,0.82)" }} />
+
       <svg
         className="h-full w-full"
         viewBox="0 0 1920 1080"
@@ -103,8 +115,8 @@ export default function CircuitHUD() {
         {ACTIVE_TRACES.map((trace, i) => {
           const id = `active-trace-${i}`;
           const d = toPath(trace.points);
-          const isRed = i % 5 === 4;
-          const nodeColor = isRed ? CIRCUIT_RED : trace.color;
+          //const isRed = i % 5 === 4;
+          const nodeColor = trace.color;
           return (
             <g key={id}>
               <Animated<SVGPathElement>
@@ -135,7 +147,7 @@ export default function CircuitHUD() {
                 />
               ))}
 
-              <circle r={3.5} fill={isRed ? CIRCUIT_RED : CIRCUIT_CYAN} style={{ filter: `drop-shadow(0 0 6px ${isRed ? CIRCUIT_RED : CIRCUIT_CYAN})` }}>
+              <circle r={3.5} fill={CIRCUIT_CYAN} style={{ filter: `drop-shadow(0 0 6px ${CIRCUIT_CYAN})` }}>
                 <animateMotion
                   dur={`${trace.packetDuration}s`}
                   begin={`${CIRCUIT_BUILD_DURATION + trace.packetDelay}s`}

@@ -2,10 +2,10 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import CPBackground from "@/components/CPBackground";
 import BackToHubButton from "@/components/BackToHubButton";
 import GlassPanel from "@/components/GlassPanel";
 import ProgressBar from "@/components/ProgressBar";
+import SocialLinks from "@/components/SocialLinks";
 import { NOTABLE_PROBLEMS } from "@/lib/cp-problems";
 
 type CFUser = {
@@ -179,10 +179,10 @@ export default function CompetitiveProgrammingPage() {
   }, []);
 
   return (
-    <main className="relative min-h-screen overflow-hidden">
+    <main className="relative mx-auto max-w-6xl px-6 py-16">
       <BackToHubButton />
-      <div className="relative z-20 mx-auto flex min-h-screen max-w-3xl items-center px-6 py-24">
-        <GlassPanel>
+
+      <GlassPanel>
           <p className="font-mono text-sm uppercase tracking-widest text-signal">
             Spoke: Competitive Programming
           </p>
@@ -336,6 +336,7 @@ export default function CompetitiveProgrammingPage() {
               <Link
                 key={problem.slug}
                 href={`/spokes/cp/problems/${problem.slug}`}
+                prefetch={false}
                 className="group block rounded-md border border-white/10 bg-black/20 p-5 transition-colors hover:border-signal/50 hover:bg-black/30"
               >
                 <div className="flex items-center justify-between gap-4">
@@ -353,9 +354,10 @@ export default function CompetitiveProgrammingPage() {
             ))}
           </div>
         </GlassPanel>
-      </div>
 
-      <CPBackground />
+      <div className="mt-10">
+        <SocialLinks />
+      </div>
     </main>
   );
 }

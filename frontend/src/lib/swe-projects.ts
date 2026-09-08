@@ -36,6 +36,60 @@ export const SWE_PROJECTS: SweProject[] = [
     completion: 80,
   },
   {
+    slug: "ai-fraud-detector-for-bank-applications",
+    name: "AI Fraud Detector for Bank Applications",
+    stack: "React + TypeScript · Next.js · FastAPI · MySQL",
+    blurb:
+      "Web dashboard for an NGO running rural medical brigades. Staff can view patient intake, vitals, and treatment notes captured in the field, with analytics on patient demographics and treatment outcomes — replacing paper charts that used to go missing between clinics.",
+    architecture:
+      "TODO — outline the offline-first sync architecture: local persistence layer, conflict resolution on reconnect, and why that approach won over a naive last-write-wins sync.",
+    tradeoffs: [
+      "TODO — local-first storage choice vs. a thin client hitting a remote API directly",
+      "TODO — conflict resolution strategy when two field devices sync the same patient record",
+    ],
+    ciStatus: "TODO — add CI badge (build + test status)",
+    realUsers: "TODO — brigade staff count / clinics using it, if shareable",
+    liveDemoUrl: "https://demo.example.com/ai-fraud-detector-for-bank-applications",
+    repoUrl: "",
+    completion: 80,
+  },
+  {
+    slug: "Accessibility-Analytics-for-iOS-Apps",
+    name: "Accessibility Analytics for iOS Apps",
+    stack: "React + TypeScript · Next.js · FastAPI · MySQL",
+    blurb:
+      "Web dashboard for an NGO running rural medical brigades. Staff can view patient intake, vitals, and treatment notes captured in the field, with analytics on patient demographics and treatment outcomes — replacing paper charts that used to go missing between clinics.",
+    architecture:
+      "TODO — outline the offline-first sync architecture: local persistence layer, conflict resolution on reconnect, and why that approach won over a naive last-write-wins sync.",
+    tradeoffs: [
+      "TODO — local-first storage choice vs. a thin client hitting a remote API directly",
+      "TODO — conflict resolution strategy when two field devices sync the same patient record",
+    ],
+    ciStatus: "TODO — add CI badge (build + test status)",
+    realUsers: "TODO — brigade staff count / clinics using it, if shareable",
+    liveDemoUrl: "https://demo.example.com/medical-brigade-analytics-dashboard",
+    repoUrl: "",
+    completion: 80,
+  },
+  {
+    slug: "art-block-app-for-artists",
+    name: "Art Block App for Artists",
+    stack: "React + TypeScript · Next.js · FastAPI · MySQL",
+    blurb:
+      "Web dashboard for an NGO running rural medical brigades. Staff can view patient intake, vitals, and treatment notes captured in the field, with analytics on patient demographics and treatment outcomes — replacing paper charts that used to go missing between clinics.",
+    architecture:
+      "TODO — outline the offline-first sync architecture: local persistence layer, conflict resolution on reconnect, and why that approach won over a naive last-write-wins sync.",
+    tradeoffs: [
+      "TODO — local-first storage choice vs. a thin client hitting a remote API directly",
+      "TODO — conflict resolution strategy when two field devices sync the same patient record",
+    ],
+    ciStatus: "TODO — add CI badge (build + test status)",
+    realUsers: "TODO — brigade staff count / clinics using it, if shareable",
+    liveDemoUrl: "https://demo.example.com/art-block-app-for-artists",
+    repoUrl: "https://github.com/ultronGemini/Creative-App.git",
+    completion: 30,
+  },
+  {
     slug: "isp-network-optimization-suite",
     name: "ISP Network Optimization Suite",
     stack: "C++ · SonarQube",
@@ -54,8 +108,8 @@ export const SWE_PROJECTS: SweProject[] = [
     completion: 100,
   },
   {
-    slug: "seitrc-workshop-platform",
-    name: "SEITC Workshop Platform",
+    slug: "seitc-platform",
+    name: "SEITC Platform",
     stack: "FastAPI · React + TypesScript · PostgreSQL · Docker Compose",
     blurb:
       "SEITC's Build a Portfolio and LeetCode & DSA 101 workshops. Handles sign-ups, tracks student progress against the NeetCode roadmap, and ranks practice activity on a leaderboard.",

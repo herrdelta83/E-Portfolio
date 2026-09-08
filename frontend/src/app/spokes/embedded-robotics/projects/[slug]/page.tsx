@@ -1,9 +1,9 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import RoboticsBackground from "@/components/RoboticsBackground";
 import BackToHubButton from "@/components/BackToHubButton";
 import GlassPanel from "@/components/GlassPanel";
 import ProgressBar from "@/components/ProgressBar";
+import SocialLinks from "@/components/SocialLinks";
 import { ROBOTICS_PROJECTS, getRoboticsProject } from "@/lib/robotics-projects";
 
 export function generateStaticParams() {
@@ -21,14 +21,13 @@ export default async function RoboticsProjectPage({
   if (!project) notFound();
 
   return (
-    <main className="relative min-h-screen overflow-hidden">
-      <RoboticsBackground />
+    <main className="relative mx-auto max-w-6xl px-6 py-16">
       <BackToHubButton />
 
-      <div className="relative z-20 mx-auto flex min-h-screen max-w-5xl items-center px-6 py-16">
-        <GlassPanel>
+      <GlassPanel>
           <Link
             href="/spokes/embedded-robotics"
+            prefetch={false}
             className="font-mono text-xs uppercase tracking-widest text-signal/70 hover:text-signal"
           >
             ← Embedded Systems &amp; Robotics
@@ -97,6 +96,9 @@ export default async function RoboticsProjectPage({
             </div>
           </div>
         </GlassPanel>
+
+      <div className="mt-10">
+        <SocialLinks />
       </div>
     </main>
   );

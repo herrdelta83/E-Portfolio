@@ -2,10 +2,50 @@
 @tailwind components;
 @tailwind utilities;
 
+/* --font-mono is set by next/font/google in layout.tsx (via its `variable`
+   option on <html>) — that's what actually loads it instead of silently
+   falling back. --font-display and --font-body are the exceptions: both are
+   set below, permanently (chosen via FontLab, now deactivated — see its
+   TODO in src/components/FontLab.tsx if it's ever needed again). */
+
+/* Blanka/Anurati/Conthrax aren't on Google Fonts — this is the local file
+   each needs, dropped into public/fonts/ using the filenames below. */
+@font-face {
+  font-family: "Blanka";
+  src: url("/fonts/Blanka-Regular.woff2") format("woff2");
+  font-display: swap;
+}
+@font-face {
+  font-family: "Anurati";
+  src: url("/fonts/Anurati-Regular.woff2") format("woff2");
+  font-display: swap;
+}
+@font-face {
+  font-family: "Conthrax";
+  src: url("/fonts/Conthrax-Regular.woff2") format("woff2");
+  font-display: swap;
+}
+
 :root {
-  --font-display: "IBM Plex Serif", serif;
-  --font-body: "Inter", sans-serif;
-  --font-mono: "IBM Plex Mono", monospace;
+  /* Plain generic fallbacks only — NOT var(--font-display) or var(--font-body).
+     FontLab assigns these straight onto --font-display/--font-body, so a
+     fallback pointing back at either would be a same-element cycle (e.g.
+     --font-display -> --font-blanka -> --font-display), which CSS resolves
+     as fully invalid rather than "use the other one" — the bug that made
+     all three silently no-op back to the browser's default inherited font. */
+  --font-blanka: "Blanka", serif;
+  --font-anurati: "Anurati", sans-serif;
+  --font-conthrax: "Conthrax", sans-serif;
+
+  /* The real, permanent title/subtitle font — chosen via FontLab. Falls back
+     to the old IBM Plex Serif baseline (still loaded in layout.tsx), then a
+     generic serif, if the local Conthrax file ever fails to load. */
+  --font-display: "Conthrax", var(--font-plex-serif), serif;
+
+  /* The real, permanent body-text font — also chosen via FontLab. Falls back
+     to the old Inter baseline (still loaded in layout.tsx), then a generic
+     monospace, if Space Mono ever fails to load. */
+  --font-body: "Space Mono", var(--font-inter), monospace;
 }
 
 body {
