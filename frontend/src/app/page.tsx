@@ -3,25 +3,20 @@
 import { useState, type CSSProperties } from "react";
 import Link from "next/link";
 import { AnimatorGeneralProvider, Animator, Animated, FrameOctagon } from "@arwes/react";
-import CircuitHUD, {
-  CIRCUIT_BUILD_DURATION,
-  CIRCUIT_CYAN,
-  CIRCUIT_GREEN,
-} from "@/components/CircuitHUD";
+import { CIRCUIT_CYAN, CIRCUIT_GREEN } from "@/components/CircuitHUD";
 import ProgressBar from "@/components/ProgressBar";
+import SocialLinks from "@/components/SocialLinks";
 import { SWE_PROJECTS } from "@/lib/swe-projects";
 import { ML_PROJECTS } from "@/lib/ml-projects";
 import { ROBOTICS_PROJECTS } from "@/lib/robotics-projects";
 import { NOTABLE_PROBLEMS } from "@/lib/cp-problems";
 
-// The circuit board background draws in at CIRCUIT_BUILD_DURATION (root
-// Animator enter, shared by CircuitHUD's <Animated animated={["draw"]}> traces
-// via context). Every UI frame below is its own Animator merging duration
-// against the SAME global provider — so without an override they'd all take
-// just as long to draw in as the board itself. Two independent overrides:
-// SHELL_REVEAL_DURATION for the title bar, intro line, and the outer frame
-// wrapping the whole 2x2 grid; SPOKE_REVEAL_DURATION for each individual
-// spoke quadrant's own frame, inside that shell.
+// CircuitHUD itself now lives in layout.tsx (persistent, one mount for the
+// whole session) — this page only owns its own content's reveal (header,
+// grid, marquee), independent of the board's own build-in timing.
+// SHELL_REVEAL_DURATION for the title bar and the outer frame wrapping the
+// whole 2x2 grid; SPOKE_REVEAL_DURATION for each individual spoke quadrant's
+// own frame, inside that shell.
 const SHELL_REVEAL_DURATION = 0.4;
 const SPOKE_REVEAL_DURATION = 0.6;
 const SPOKE_STAGGER = 0;
@@ -54,25 +49,25 @@ const spokes = [
     slug: "swe",
     label: "Software Engineering",
     blurb: "Systems, tools, and full-stack builds — including 'build your own X' deep dives and AI-integrated projects like RAG pipelines and GPT-powered features.",
-    image: "/images/desktop/hub-swe.webp",
+    image: "/images/desktop/RotatingCube.gif",
   },
   {
     slug: "cp",
     label: "Competitive Programming",
     blurb: "Live Codeforces / LeetCode stats, contest history, and problem-solving notes.",
-    image: "/images/desktop/hub-cp.webp",
+    image: "/images/desktop/RotatingComp.gif",
   },
   {
     slug: "ml",
     label: "Machine Learning",
     blurb: "Trained models, from-scratch experiments, and deployed demos.",
-    image: "/images/desktop/hub-ml.webp",
+    image: "/images/desktop/Graph3D.gif",
   },
   {
     slug: "embedded-robotics",
     label: "Embedded Systems & Robotics",
     blurb: "Firmware, wiring diagrams, and physical builds, with live telemetry where possible.",
-    image: "/images/desktop/hub-robotics.webp",
+    image: "/images/desktop/Robotic3D.gif",
   },
 ];
 
@@ -92,6 +87,7 @@ function SpokeQuadrant({ spoke }: { spoke: (typeof spokes)[number] }) {
   return (
     <Link
       href={`/spokes/${spoke.slug}`}
+      prefetch={false}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       className="group relative flex items-center gap-4 p-5"
@@ -122,7 +118,6 @@ function SpokeQuadrant({ spoke }: { spoke: (typeof spokes)[number] }) {
         <ProgressBar
           value={SPOKE_PROGRESS[spoke.slug] ?? 0}
           label="Build progress"
-          variant="cyan"
           className="mt-3"
         />
       </div>
@@ -180,73 +175,10 @@ function TechMarquee() {
   );
 }
 
-// Contact/profile chips below the 2x2 grid — same chamfered-frame + pin-tick
-// look as CircuitHUD's decorative IC chip badge, but real interactive links.
-// TODO: swap in your actual LinkedIn URL.
-const SOCIAL_LINKS = [
-  { label: "GitHub", href: "https://github.com/herrdelta83", icon: "/images/desktop/github.png" },
-  { label: "LinkedIn", href: "https://linkedin.com/in/leonelbailonsifuentes", icon: "/images/desktop/LinkedIn.png" },
-  {
-    label: "Gmail",
-    href: "https://mail.google.com/mail/?view=cm&fs=1&to=bailondelta@gmail.com",
-    icon: "/images/desktop/gmail.png",
-  },
-];
-
-const SOCIAL_CHIP_PINS = 4;
-
-function SocialChip({ link }: { link: (typeof SOCIAL_LINKS)[number] }) {
-  const [hovered, setHovered] = useState(false);
-
-  return (
-    <a
-      href={link.href}
-      target="_blank"
-      rel="noopener noreferrer"
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      className="group flex flex-col items-center gap-2"
-    >
-      <div className="relative" style={{ width: 88, height: 88 }}>
-        {/* pin ticks — top & bottom edges, same idea as CircuitHUD's chip badge */}
-        <div className="pointer-events-none absolute inset-x-2 -top-2 flex justify-between">
-          {Array.from({ length: SOCIAL_CHIP_PINS }).map((_, i) => (
-            <span key={i} className="h-2 w-px bg-[#00F0FF]" />
-          ))}
-        </div>
-        <div className="pointer-events-none absolute inset-x-2 -bottom-2 flex justify-between">
-          {Array.from({ length: SOCIAL_CHIP_PINS }).map((_, i) => (
-            <span key={i} className="h-2 w-px bg-[#00F0FF]" />
-          ))}
-        </div>
-
-        <Animated
-          className="absolute inset-0 transition-[filter] duration-300 ease-out"
-          hideOnExited={false}
-          style={{
-            filter: hovered
-              ? `drop-shadow(0 0 4px ${CIRCUIT_CYAN}) drop-shadow(0 0 12px ${CIRCUIT_CYAN})`
-              : "none",
-          }}
-        >
-          <FrameOctagon style={framePanelStyle} strokeWidth={hovered ? 2.5 : 1.5} squareSize={12} />
-        </Animated>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={link.icon} alt="" className="relative h-full w-full object-contain p-4" />
-      </div>
-      <span className="font-mono text-xs uppercase tracking-widest text-[#8FD8DE]/80 group-hover:text-[#E8FEFF]">
-        {link.label}
-      </span>
-    </a>
-  );
-}
-
 export default function Home() {
   return (
-    <AnimatorGeneralProvider duration={{ enter: CIRCUIT_BUILD_DURATION, exit: 1 }}>
+    <AnimatorGeneralProvider duration={{ enter: SHELL_REVEAL_DURATION, exit: 1 }}>
       <Animator root active manager="stagger" duration={{ stagger: SHELL_STAGGER }}>
-        <CircuitHUD />
-
         <main className="relative mx-auto max-w-6xl px-6 py-16">
           {/* header bar */}
           <Animator duration={{ enter: SHELL_REVEAL_DURATION }}>
@@ -258,7 +190,7 @@ export default function Home() {
                     2026 build log
                   </p>
                   <h1 className="mt-2 font-display text-3xl text-[#E8FEFF] sm:text-4xl">
-                    Leonel Dev | Software Engineer Student
+                    Leonel Dev | Computer Science Student
                   </h1>
                 </div>
                 <div className="hidden items-center gap-2 font-mono text-xs uppercase tracking-widest text-[#00FF55] sm:flex">
@@ -305,19 +237,8 @@ export default function Home() {
 
           {/* contact/profile chips */}
           <Animator duration={{ enter: SHELL_REVEAL_DURATION }}>
-            <Animated className="relative mt-10" hideOnExited={false}>
-              <Animator manager="stagger" duration={{ stagger: SPOKE_STAGGER }}>
-                <div className="flex items-center justify-center gap-12">
-                  {SOCIAL_LINKS.map((link) => (
-                    <Animator
-                      key={link.label}
-                      duration={{ enter: SPOKE_REVEAL_DURATION, delay: SPOKE_REVEAL_DELAY }}
-                    >
-                      <SocialChip link={link} />
-                    </Animator>
-                  ))}
-                </div>
-              </Animator>
+            <Animated className="relative mt-10" hideOnExited={false} animated={["fade"]}>
+              <SocialLinks />
             </Animated>
           </Animator>
         </main>

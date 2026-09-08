@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { IBM_Plex_Serif, IBM_Plex_Mono, Inter, Orbitron, Space_Mono } from "next/font/google";
+import PersistentBoard from "@/components/PersistentBoard";
 import "./globals.css";
 
 // IBM Plex Serif was the old --font-display baseline before Conthrax was
@@ -50,7 +51,16 @@ export default function RootLayout({
       lang="en"
       className={`${plexSerif.variable} ${inter.variable} ${plexMono.variable} ${orbitron.variable} ${spaceMono.variable}`}
     >
-      <body className="font-body antialiased">{children}</body>
+      <body className="font-body antialiased">
+        {/* CircuitHUD lives here, not in individual pages — mounted exactly
+            once for the whole session. App Router guarantees layout.tsx
+            never remounts on nested navigation, so the board builds in once
+            and persists across every hub<->spoke transition instead of
+            rebuilding on each click. Every page (hub + all 4 spokes) shares
+            this one background now — see CLAUDE.md. */}
+        <PersistentBoard />
+        {children}
+      </body>
     </html>
   );
 }
