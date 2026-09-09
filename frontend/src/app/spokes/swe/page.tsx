@@ -18,9 +18,8 @@ export default function SoftwareEngineeringPage() {
         </p>
         <h1 className="mt-3 font-display text-4xl text-paper">Software Engineering</h1>
         <p className="mt-6 text-paper/80">
-          Systems, tools, and full-stack builds — including &apos;build your own X&apos;
-          deep dives and AI-integrated projects like RAG pipelines and GPT-powered
-          features.
+          Academic projects with partner companies, hackathons side apps, personal projects + LLM-powered features,
+          core infrastructure projects to learn large-scale distributed systems
         </p>
 
         <div className="mt-8">
