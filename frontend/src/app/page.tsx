@@ -48,7 +48,7 @@ const spokes = [
   {
     slug: "swe",
     label: "Software Engineering",
-    blurb: "Systems, tools, and full-stack builds — including 'build your own X' deep dives and AI-integrated projects like RAG pipelines and GPT-powered features.",
+    blurb: "Academic projects with partner companies, hackathons side apps, personal projects + LLM-powered features, core infrastructure projects to learn large-scale distributed systems",
     image: "/images/desktop/RotatingCube.gif",
   },
   {
