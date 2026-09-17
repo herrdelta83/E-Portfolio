@@ -143,6 +143,7 @@ const TECH_ICONS = [
   { label: "OpenCV", icon: "/images/desktop/opencv.png" },
   { label: "Unity", icon: "/images/desktop/unity.png" },
   { label: "MATLAB", icon: "/images/desktop/matlab.png" },
+  { label: "OpenGL", icon: "/images/desktop/opengl.png" },
 ];
 
 const EDGE_FADE_MASK =
