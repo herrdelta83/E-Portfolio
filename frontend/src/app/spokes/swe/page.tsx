@@ -1,7 +1,6 @@
-import Link from "next/link";
 import BackToHubButton from "@/components/BackToHubButton";
 import GlassPanel from "@/components/GlassPanel";
-import ProgressBar from "@/components/ProgressBar";
+import ProjectGalleryCard from "@/components/ProjectGalleryCard";
 import SocialLinks from "@/components/SocialLinks";
 import { SWE_PROJECTS } from "@/lib/swe-projects";
 
@@ -38,32 +37,19 @@ export default function SoftwareEngineeringPage() {
           </ul>
         </div>
 
-        <div className="mt-10 space-y-6">
+        <div className="mt-10">
           <p className="font-mono text-xs uppercase tracking-widest text-paper/50">
             Project highlights
           </p>
-          {SWE_PROJECTS.map((project) => (
-            <Link
-              key={project.slug}
-              href={`/spokes/swe/projects/${project.slug}`}
-              prefetch={false}
-              className="group block rounded-md border border-white/10 bg-black/20 p-5 transition-colors hover:border-signal/50 hover:bg-black/30"
-            >
-              <div className="flex items-center justify-between gap-4">
-                <h2 className="font-display text-xl text-paper">{project.name}</h2>
-                <span className="shrink-0 font-mono text-xs uppercase tracking-widest text-signal opacity-0 transition-opacity group-hover:opacity-100">
-                  View →
-                </span>
-              </div>
-              <p className="mt-1 font-mono text-[11px] uppercase tracking-wider text-signal">
-                {project.stack}
-              </p>
-              <p className="mt-3 text-sm leading-relaxed text-paper/75">
-                {project.blurb}
-              </p>
-              <ProgressBar value={project.completion} className="mt-4" />
-            </Link>
-          ))}
+          <div className="mt-3 grid gap-6 sm:grid-cols-2">
+            {SWE_PROJECTS.map((project) => (
+              <ProjectGalleryCard
+                key={project.slug}
+                project={project}
+                href={`/spokes/swe/projects/${project.slug}`}
+              />
+            ))}
+          </div>
         </div>
       </GlassPanel>
 
