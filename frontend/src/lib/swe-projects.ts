@@ -11,6 +11,9 @@ export type SweProject = {
   realUsers: string;
   liveDemoUrl?: string;
   repoUrl?: string;
+  // Short looping gif shown on the gallery card (src/app/spokes/swe/page.tsx).
+  // Omit until you have one — the card shows a "Loading…" placeholder instead.
+  previewGif?: string;
   // 0-100, hand-set by you as work actually progresses — not inferred from
   // anything else here. Bump it whenever you touch the project.
   completion: number;

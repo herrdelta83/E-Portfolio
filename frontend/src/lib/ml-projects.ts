@@ -11,6 +11,9 @@ export type MlProject = {
   ciStatus: string;
   liveDemoUrl?: string;
   repoUrl?: string;
+  // Short looping gif shown on the gallery card (src/app/spokes/ml/page.tsx).
+  // Omit until you have one — the card shows a "Loading…" placeholder instead.
+  previewGif?: string;
   // 0-100, hand-set by you as work actually progresses.
   completion: number;
 };
